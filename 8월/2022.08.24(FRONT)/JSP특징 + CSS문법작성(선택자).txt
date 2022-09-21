@@ -1,0 +1,89 @@
+2022.08.24 (JSP) 시작
+앞으로 이클립스(프론트) 새로 만드는 파일은 전부 JSP형식(html파일 안씀)
+
+General -> Content Type -> text -> UTF-8로 변경
+Web -> Jsp Files -> UTF-8로 인코딩 변경
+
+JSP도 4.01 템플릿 생성
+
+이름 : New JSP File Update Ver (html 4.01)
+설명 : New JSP File 4.01 수정버전 markup
+
+패턴 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="${encoding}"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type"
+		content="text/html; charset=${encoding}">
+		<title>Insert title here</title>
+	</head>
+	
+	<body>
+		${cursor}
+	</body>
+</html>
+
+<!-- 	웹 문서에서 표를 만드는 태그는 table이다 <table>	 -->
+<!-- 	<table>은 블록 태그 이며 기본적으로 -->
+<!-- 	행과 열을 가지고 있다 -->
+<!-- 	행을 만드는 태그는 tr(table row), 열을 만드는 태그는 td(table data) -->
+<!-- 	td태그는 셀(cell)이라고도 부른다 (엑셀할때 그거) -->
+<!-- 	tr (row)= 행 td (column =열, 여기선 data) = 열 -->
+
+<!-- 	형식 -->
+<!-- 	<table> -->
+<!-- 		<tr> -->
+<!-- 			<td>내용</td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
+
+즉
+
+tr(가로 - row 행 가로 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ ) // td(세로 - column,data 열 세로 ㅣㅣㅣㅣㅣㅣㅣ)
+tr1:td1, tr1:td2, tr1:td3, tr1:td4 ------------------ row(가로)	l
+tr2																l			
+tr3																l
+tr4																l(column, 세로, vertical 수직)
+
+https://entitycode.com/#common-content
+Common은 알아야한다 
+(공백) 	&nbsp;	&#160;	Inserts A Non-Breaking Blank Space
+
+
+CSS Syntax
+
+앞으로 태그선택자는 왠만하면 안씀(퍼블리셔 영역)
+
+id,class를 이용해서 선택자를 사용한다(#id,.class)
+
+###HTML, CSS 같이 있을경우 프로그램의 수행순서###? 불확실 더찾아보자
+
+1.먼저 태그를 보여준다(구조를 확인)
+
+2.태그에 적용된 style을 보여준다
+
+그룹 선택자 구분자(#sales,#manager,#clerk)
+, : OR임 즉 id가 sales거나 manager거나 clerk면 해당 스타일이 적용된다
+
+하위 선택자
+()빈칸으로 구분 (#root #child{}
+:해당 태그 밑에 있기만 하면 어디에위치하던 적용됨  (master emplo){} 이경우 master 밑에있는 emplo는 전부 스타일이 적용됨
+
+자식 선택자(부모 자식관계만)
+:해당 태그 밑에 일일이 부모 자식 관계를 찾아가야함 (master > submaster > team > team2 > emplo){} 이 경우 해당 단계가 적용된 emplo만 style이 적용됨
+
+<!-- 선택자 순위
+	1.inline스타일(즉 <p1 style = ~~~ 하고 직접 스타일하는거)
+	2.ID 선택자 #selector  동일한 이름 사용 불가, 한 곳 에서만 적용해서 사용 #으로 표시
+	3.CLASS 선택자 .selector 동일한 이름 사용 가능, 동일한 여러곳 적용해서 사용, .으로 표시
+	4.속성 기반 선택자
+ -->
+ 
+ CSS border(테두리) : 대충 이렇게 3종류 쓸예정
+ 
+ p.solid {border-style: solid;}
+ p.none {border-style: none;}
+ p.hidden {border-style: hidden;}

@@ -1,0 +1,191 @@
+자바스크립트
+
+자바 변수
+
+변수 호이스팅 : 선언이 코드 실행 보다 먼저 메모리에 저장되는 과정으로 인한 현상
+var, let, const 모두 호이스팅이 발생은 하지만
+let, const는 변수의 선언과 초기화 사이에 일시적으로 변수 값을 참조할 수 없는 구간인 TDZ(Temporal Dead Zone)에 빠진다.
+
+함수표현식을 사용하거나 let 또는 const 로 변수를 선언하는 경우, 
+자바스크립트 내부에서는 코드 실행 전 변수 선언만 해둘뿐 초기화는 코드 실행 과정에서 변수 선언문을 만났을 때 수행한다. 
+
+호이스팅은 코드가 실행하기 전 변수선언/함수선언이 해당 스코프의 최상단으로 끌어 올려진 것 같은 현상을 말한다.
+자바스크립트 엔진은 코드를 실행하기 전 실행 가능한 코드를 형상화하고 구분하는 과정(*실행 컨텍스트를 위한 과정)을 거친다.
+자바스크립트 엔진은 코드를 실행하기 전 실행 컨텍스트를 위한과정에서 
+모든 선언(var, let, const, function, class)을 스코프에 등록한다.
+코드 실행 전 이미 변수선언/함수선언이 저장되어 있기 때문에 선언문보다 참조/호출이 먼저 나와도 오류 없이 동작한다.
+(정확히는 var 키워드로 선언한 변수와 함수 선언문일 경우 오류 없이 동작한다. 이는 선언이 파일의 맨 위로 끌어올려진 것 처럼 보이게 한다.)
+
+스코프란?
+스코프(scope) : 함수가 실행될 때, 함수 내에서 변수(var, let, const)에 대한 접근이 어떻게 되는지를 나타내는 용어이다.
+(함수의 실행 컨텍스트 내에서의 변수 환경이 무엇인지) 스코프는 함수를 기반으로 한 용어이다.
+
+컨텍스트란?
+컨텍스트(context) : this 키워드의 값이 무엇인지를 나타내는 용어이다. 
+현재 실행 컨텍스트 내에서 어떤 객체를 참조하고 있는지를 의미한다. 컨텍스트는 객체를 기반으로 한 용어이다.
+
+함수 스코프(+var)와 블록 스코프의 차이
+함수가 선언되면 하나의 스코프(접근범위)가 발생한다. 이를 함수 스코프라 한다
+함수 스코프는 함수에서 선언한 변수는 해당 함수 내에서만 접근 가능하다는걸 의미한다
+(자바의 지역변수를 생각하자 메소드 내부에 선언한 변수)
+
+블록 스코프(+let,const)
+블록스코프는 블록 내부에서 선언된 변수는 !!해당 블록에서만!! 접근 가능한걸 말한다
+let, const로 선언된 변수가 블록 스코프 방식을 따른다
+
+
+var : 단계(1.선언 및 초기화 단계 // 2.할당 단계)
+	  한번 선언된 변수를 다시 선언 할 수 있다
+	  (var name = 'ace'; var name = 'luffy'; 에러아님 즉 변수자체를 다시선언이 가능)
+	  var는 선언하기 전에 사용할 수 있다
+	  호이스팅은 선언만 적용됨
+	  console.log(name);
+	  var name = 'Mike';
+	  이경우 name에 undifined가 찍힌다(var name이 먼저 선언되어 메모리에 저장되었음) - name에 값이 할당되지는 않음
+	  var : 함수 스코프(function-scoped)
+	  함수내부에서는 지역변수로 사용되고 그 외 상황(함수 외부)에서는 전역변수로 사용된다
+	  
+if (true) {
+  var abc = '123'; // var로 선언하면 블록에 의한 범위 제한이 없음
+}
+console.log(abc)  // 123 (출력됨) var는 함수내에서는 지역변수로 유지되고 위코드에서는 전역변수로 취급됨	  
+
+let   : 단계(1.선언 단계 // 2. 초기화 단계 // 3. 할당 단계
+      중복선언 불가능 + 재선언 가능
+	  (let name = 'ace'; let name = 'luffy'; 에러 중복선언은 불가 name = 'luffy' 이렇게 재선언은 가능
+	  let : 블록 스코프(block-scoped): 함수,if 문, for 문, while 문, try/catch 문 등
+
+const : 단계(1.선언+초기화+할당 한번에)
+	  중복선언 불가능 + 재선언 불가능하다
+	  const즉 constant(상수)를 의미한다 한번 선언한 값을 바꿀 수 없다!
+	  값을 재할당하는 코드만 불가능하다고 보면 된다
+	  const : 블록 스코프(block-scoped): 함수,if 문, for 문, while 문, try/catch 문 등	  
+	  
+if (true) {
+  const abc = '123';  // const, let은 블록 스코프를 따름
+}
+console.log(abc)      // ReferenceError: abc is not defined	 해당블록 내부 if{}를 벗어났기 때문에 에러임 
+
+그러므로 const를 사용하여 불필요한 변수의 재사용을 방지하고 재할당이 필요한경우 let을 사용하는것을 추천한다
+(var를 사용하지 말라는 소리는 아님)
+
+#########################################
+1.생성자 함수(Intermediate Class)
+#########################################
+
+객체 리터럴로 생성하는 방법
+(key와 value 형태로 생성함)
+let user = {
+	name : 'Mike',
+	age : 30,
+}
+
+user = {name: 'Mike', age: 30}
+
+생성자 함수 : 객체의 요소를 전달받아 객체를 생성함(객체 리터럴보다 상대적으로 빠르고 간편하게 일관성있는 객체를 생성한다)
+자바 객체생성이랑 거의 동일함 (Make a = new Make(프로퍼티1,프로퍼티2); 이런식으로 객체생성)
+
+function User(name, age){ -- 첫글자는 대문자로, 
+	//this = {}; -- 빈객체가 암시적으로 만들어진다.
+
+	//빈객체 this가 생성되었으므로 새로운 프로퍼티(name이나 age)를 this에 추가한다
+	this.name = name;
+	this.age = age;
+	
+	//return this; this가 암시적으로 반환된다.
+}
+
+new 함수명();
+
+-- new 연산자를 사용해서 호출
+let user1 = new User('Mike', 30);
+let user2 = new User('Jane', 22);
+let user3 = new User('Tom', 17);
+
+user1 -> User {name: 'Mike', age: 30}
+
+생성자 함수 내부에 메소드
+생성자 함수를 사용하면 매개변수를 이용해 객체 내부를 자유롭게 구성할 수 있다.
+this.프로퍼티뿐만 아니라 this.메소드를 더해 줄 수 있는것이다.
+
+function User(name,age){
+	this.name = name;
+	this.age = age;
+	this.sayName = function(){
+		console.log(this.name+' 입니다.'):
+	}
+}
+
+let hs = new User('조현석',25);
+hs.sayName(); // 조현석 입니다.(그냥 자바네 이거)
+
+##################################################
+1.생성자 함수(Intermediate Class) 
+(1)Object - methods  
+##################################################
+Computed property(계산된 프로퍼티)
+객체 리터럴 안의 프로퍼티 키가 대괄호로 둘러싸여 있다면, 이를 계산된 프로퍼티(computed property) 라고 부릅니다.
+
+let a = 'age';
+
+const user = {
+	name : 'Mike',
+	age : 30
+}
+
+이것을 이렇게 표현 할 수 있다 (계산된 프로퍼티)
+대괄호 표기법은 프로퍼티 이름과 값의 제약을 없애주기 때문에 점 표기법보다 훨씬 강력합니다. 
+그런데 작성하기 번거롭다는 단점이 있습니다.
+이런 이유로 (프로퍼티 이름이 확정된 상황이고, 이름도 단순하다면) 처음엔 점 표기법을 사용하다가 
+뭔가 복잡한 상황이 발생했을 때 대괄호 표기법으로 바꾸는 경우가 많습니다.
+
+const user = {
+	name : 'Mike',
+	[a + '이런식으로 프로퍼티이름 확장이 가능'] : 30 ---> [a]는 프로퍼티 이름을 변수 a에서 가져오겠다는 뜻이다.
+}
+
+객체 메소드 Object Methods 
+
+[1]Object.assign() : 객체 복제
+형식 : Object.assign(빈 객체(들어올객체) , 복제할 객체 1, 복제할 객체 2, ...)
+
+const user = {
+	name : 'Mike',
+	age : 30,
+	gender : 'male',
+}
+
+const cloneUser = user --> 이건 정확하게 객체 복사가 아니다
+const newUser = Object.assign({}, user); user객체가 빈객체{}에 들어간다 --> 이게 복제임 
+const newUser = Object.assign({ gender:'male' }, user); 이런식으로 빈객체가 아닌 gender:'male'이 존재하는 객체에 복제(추가)하여 만들기도 가능하다
+newUser = {gender : 'male', name: 'Mike', age: 30}
+const newUser = Object.assign({ name:'Tom' }, user); 이런식으로 프로퍼티명이 중복될 경우 user의 프로퍼티명에 속하는 값으로 변경된다 
+즉 newUser = {name: 'Tom'}에서 {name: 'Mike', age:30}
+
+또한 복제를 여러개도 가능하다
+Object.assign(user(복사할 객체가 들어올 객체), 복사할 객체1, 복사할 객체2, ...)
+
+[2]Object.keys() : 키 배열 반환 (name: 'Mike', age: 30 여기서 name이랑 age가 key임 key:value)
+
+Object.keys(user); // ["name", "age", "gender"]
+
+[3]Object.values() : 값 배열 반환
+
+Object.values(user); // ["Mike", 30, "male"]
+
+[4]Object.entries() : 키(key)/값(value) 객체를 배열 반환 (이중배열로 반환함 배열 안에 각각 키:밸류가 배열로 포함) 
+(객체 ---> 배열) 객체{}를 2차원 배열[[],[],..,[]]로 반환
+
+Object.entries(user); // [["name","Mike"],["age",30],["gender","male"]];
+
+[5]Object.fromEntries() : 키/값 배열을 객체로 반환
+(배열 ---> 객체)
+
+const arr = 
+[
+	["name","Mike"],
+	["age",30],
+	["gender","male"]
+];
+
+Object.fromEntries(arr); // { name : 'Mike', age : 30, gender : 'male' }

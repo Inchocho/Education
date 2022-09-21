@@ -1,0 +1,52 @@
+이클립스 팀프로젝트 
+리포지토리에서 프로젝트 임포트할시 에러발생시 
+####################
+빌드패스 -> Project Facets
+
+Configuration에서 Default Configuration for Apache Tomcat v8.0(현재 우리가 쓰는 버전)
+DynamicWebMoudule의 버전(3.1)
+JAVA 버전(1.8)
+JavaScript 버전 (1.0)을 맞춰야한다
+####################
+
+#############collaborators(협업자)###############
+큰 프로젝트를 진행함에 있어서 협업은 필수이다. 
+따라서 프로젝트를 생성한 프로젝트 마스터 이외에 다른 개발자들도 하나의 프로젝트에 대해서 
+업로드(Push), 다운로드(Pull)할 권한을 주고자 할 때 collaborators(협업자)를 추가해줘야 한다.
+
+Contributor vs Collaborator
+
+뜻을 그대로 해석하자면 기부자와 협력자이다. 이는 각각 다른 의미를 가진다.
+
+Contributor는 프로젝트의 관리자는 아니지만, 한 프로젝트의 커밋에 관여하는 모든 사람을 Contributor라고 한다.
+
+Push권한은 프로젝트 관리자와 Collaborator만이 가지고 있으므로, Fork하여 프로젝트를 통째로 복사해온다.
+그리고 Push를 하게 되면 자신이 복사해온 프로젝트에 Push가 완료되고, 원래의 저장소로 Push의 내용을 보낼 수 있다. 이를 Pull Request를 생성한다고 말한다.
+
+Pull Request가 생성되면 토론에 거쳐서 계속적인 Commit을 진행하고, 프로젝트 관리자는 Pull Request를 검토하고 Merge하거나 Reject를 하여 마무리 짓는다.
+
+이 과정에서 Pull Request가 받아들어 진다면, 이 사람은 Contributor라고 부를 수 있는 것이다.
+
+Collaborator는 프로젝트의 공동 책임자이다. 즉, GitHub의 push, pull 권한을 모두 가지고 있는 사람을 뜻한다. 
+Contributor는 Pull Request를 통해 누구나 시도할 수 있지만, Collaborator는 프로젝트 관리자가 직접 추가해줘야 얻을 수 있는 권한이다. 
+하나의 프로젝트를 중점적으로 개발하는 개발자들은 Collaborator로 등록하여 작업하는 것이 효율적이다.
+
+GitHub Collaborator 추가하기
+
+그렇다면 프로젝트를 예로 들어서 실제로 Collaborator를 추가해 보도록 하자. 대략적인 순서는 아래와 같다.
+
+1. 프로젝트 관리자가 프로젝트를 생성한다. 아래 예시는 CollaboratorTest라는 이름의 프로젝트를 생성한다. 
+   정보를 입력하고 [Create repository]를 클릭하면 프로젝트가 생성된다.
+2. 프로젝트 프로젝트 관리자가 해당 프로젝트의 설정으로 들어가서 [Settings]탭으로 이동한다.
+3. 좌측에 [Collaborators] 메뉴를 클릭한다.
+4. 가운데 있는 검색창에 추가할 Collaborator의 GitHub 아이디를 입력하고 [Add collaborator]버튼을 클릭하면 해당되는 아이디의 이메일로 확인 메일이 보내지게 된다.
+5. 위의 과정이 완료되면 메일에 응답해야 Collaborator추가가 정상적으로 완료된다. 아래의 화면은 응답을 기다리는 상태를 보여준다.
+6.  Collaborator의 계정으로 접속하여 응답메일을 확인한다. [View invitation]을 클릭하여 요청을 확인한다.
+7. 다음과 같은 페이지가 나오면 [Accept invitation]을 클릭하여 Collaborator요청을 받아들인다.
+8. 이제 Collaborator로 정상적으로 등록되어 자신의 Repository로 추가된 것을 볼 수 있다.
+9. 관리자 페이지에서 확인해보면 정상적으로 Collaborators에 추가된 것을 볼 수 있다.
+
+이제 협력자가 추가되고 프로젝트의 업로드(Push), 다운로드(Pull) 권한을 모두 부여받게 되었다. 이제 프로젝트의 전반적인 관리를 할 수 있게 되었다.
+리포지토리에 커밋시 2021년 8월 이후로 유저명/비번이 아니라 유저명/토큰키값임
+
+ 

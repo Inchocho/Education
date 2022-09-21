@@ -1,0 +1,11 @@
+- 테이블만들기 , 테이블안에 테이블 만들기
+
+- 셀병합하기(colspan, rowspan)
+
+- 정렬(align vlign)
+
+- 폰트설정하기(color, 폰트체, 크기)
+
+- 배경색 넣기(bgcolor등등)
+
+- css설정하기-여러 설정들을 css selector 로 선언하기

@@ -1,0 +1,159 @@
+자바스크립트
+
+바디
+		<div>
+			<ul id='list'>
+			</ul>
+		</div>
+
+	var listUlObj = document.getElementById('list');
+	
+	var listParentObj = listUlObj.parentNode;
+	alert(listParentObj);
+	
+	alert(listParentObj.tagName);
+	
+먼저 문서에서 id가 list인 태그를 객체 listUlObj 변수에 담는다
+
+그리고 변수 listParentObj에 listUlObj.parentNode; 를 통해서 
+변수 listUlObj(id가 list인 태그)의 상위노드를 찾는다 즉 ul의 상위인 div를 찾게된다
+
+그리고 해당 태그명을 확인하기 위해
+document.write(listParentObj.tagName)를 하면 상위태그명인 div가 출력된다
+
+##tagName##
+태그네임을 확인하기위해 사용한다
+
+##.textContent##
+태그의 내부 내용을 불러온다
+var listChildObjList = listUlObj.childNodes;
+listChildObjList[0].textContent 
+즉 이러면 자식목록중 0번째 인덱스인 태그의 내용을 불러온다
+
+##parentNode##
+부모를 찾는법
+먼저 해당 id를 통해 태그를 찾음 (getElementById)
+찾은 태그.parentNode;를 통해 태그의 바로 상위태그를 찾음
+부모 즉 태그의 상위태그는 무조건 한개이므로 변수명은 Obj로 끝난다(명명규칙) (ex: divParentObj)
+
+##childNodes##
+자식을 찾는법
+해당 태그의 자식태그(바로 아래)를 찾는다
+상위 태그는 한개지만 자식태그는 여러개 일 수 있으므로 childNodes <- s가 붙고
+변수명을 지을때 List를 포함하게된다 (ex: listChildObjList)
+childNodes는 옛날에 만들어서 공백처리를 생각하지 않았다
+그래서 엔터를 해서 줄바꿈등을 하면 childNodes는 줄바꿈을 할때 태그가 생겼다고 생각해서 공백태그로 생성된다
+그러므로 실제로 한줄로 만들지않으면 자식노드의 길이는 더 길어지는것
+
+##children##
+위에 단점을 해결한게 children이다
+
+DOM 
+문서 객체 조작
+문서에 새로운 태그를 직접 생성하는 방법
+	
+	생성
+	createElement('태그명') -> 새 태그 생성
+	appendTextNode / CreateTextNode('텍스트'); -> 새 텍스트 생성
+	
+	추가
+	선택태그.appendChilde(새 태그) -> 선택태그에 새로운 자식 태그 추가
+	선택태그.insertBefore(새 태그, 선택태그2) 
+	-> 선택태그1의 자식인 선택태그2 앞에 새로운 자식 태그를 추가 선택태그.(즉 새태그, 추가자식태그, 선택태그2) 
+	
+	교체
+	선택태그1.replaceChild(새 태그, 선택태그2) 
+	-> 선택태그1의 자식인 선택태그2를 새 태그로 덮어씌움
+	
+	삭제
+	선택태그1.removeChild(선택태그2) 
+	-> 선택태그1의 자식인 선택태그2를 삭제
+	
+	복제
+	선택태그.cloneNode(true or false) 
+	-> 선택태그를 복제하여 true인 경우 하위 태그까지도 모두 복제
+	
+	속성부여
+	선택태그.setAttribute('속성', '값') 
+	-> 선택태그에 해당 속성값을 부여
+
+
+DOM 객체생성 예시
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=UTF-8">
+		<title>DOMCONTROLBASIC2 태그생성</title>
+		
+		<style type="text/css">
+		
+		</style>
+		
+
+		
+	</head>
+	
+	<body>
+	
+		<div id='container' style="border:1px black solid;">	
+<!-- 			<div style="border:1px black solid";>태그 생성 연습</div> -->
+		
+<!-- 			<ul> -->
+<!-- 				<li>리스트1</li> -->
+<!-- 				<li>리스트2</li> -->
+<!-- 			</ul> -->
+		</div>
+	
+	</body>
+	
+	<script type="text/javascript">
+	
+		//새로운 태그 생성
+		var newDivTag = document.createElement("div");	// div(con)>div 2레벨
+		var newUlTag = document.createElement("ul");	// div(con)>ul 2레벨
+		var newFirstLiTag = document.createElement("li");	// div(con)>ul>li 3레벨
+		var newSecondLiTag = document.createElement("li");  // div(con)>ul>li 3레벨
+		
+		//새 텍스트 생성
+		var divText = document.createTextNode("태그 생성 연습");
+		var firstLiText = document.createTextNode("리스트1");
+		var secondLiText = document.createTextNode("리스트2");
+
+		//속성부여
+		//스타일은 이렇게 하는게 별로 안좋다함 인터넷이 근데 setAttribute쓴다함
+		
+// 		나쁜예시:
+// 		element .setAttribute("style", "background-color: red;");
+// 		좋은예시:
+// 		element .style.backgroundColor = "red";		
+		
+// 		newDivTag.setAttribute("style", "border: 1px solid black;");
+// 		newFirstLiTag.setAttribute("style", "font-size: 20px;");
+// 		newSecondLiTag.setAttribute("style", "font-size: 20px; color: yellow;");
+		
+		newSecondLiTag.setAttribute("id", "test");
+		newSecondLiTag.setAttribute("class", "test");
+
+		newDivTag.style.border = "1px solid black";
+		newFirstLiTag.style.fontSize = "20px";
+		newSecondLiTag.style.fontSize = "20px";
+		newSecondLiTag.style.color = "#FFFF00";		
+
+		//자식태그추가(우선 텍스트 붙임)
+		newDivTag.appendChild(divText);
+		newFirstLiTag.appendChild(firstLiText);
+		newSecondLiTag.appendChild(secondLiText);
+		
+		//자식태그추가(2레벨 ul태그에 3레벨 li태그를 붙임)
+		newUlTag.appendChild(newFirstLiTag);
+		newUlTag.appendChild(newSecondLiTag);	
+		
+		//마지막으로 최종적으로 container에 자식으로 2레벨태그(div,ul)추가		
+		var theObj = document.getElementById("container");
+		theObj.appendChild(newDivTag);
+		theObj.appendChild(newUlTag);
+			
+	</script>	
+</html>

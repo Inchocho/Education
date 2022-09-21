@@ -1,0 +1,89 @@
+Port 8080 required by Tomcat v8.0 Server at localhost (2) is already in use. 
+The server may already be running in another process
+, or a system process may be using the port. 
+To start this server you will need to stop the other process or change the port number(s).
+
+(8080포트 에러가 나는 이유): 우선적으로 오라클(서버)를 설치해서 이미 점유중임
+포트번호는 유일해야 하므로 서버설정에서 포트번호를 변경해준다
+왼쪽 프로젝트 탐색기에서 
+Servers -> 해당서버폴더 -> server.xml 열기 -> source 선택(하단)
+Connector를 찾아서 포트번호를 변경해준다(앞으로 GUI는 지양한다) xml파일에서 관리
+<!-- <Connector connectionTimeout="20000" port="8091" (8080 -> 8091로 변경함)
+protocol="HTTP/1.1" redirectPort="8443"/> -->
+서버는 올리고 내린다고 표현한다고 합니다(서버폴더 하나당 무조건 서버는 1개 1:1매칭)
+
+앞으로 이클립스(Perspective -> Jave EE) -> Dynamic Web Project를 사용한다 (이클립스Front로 작업)
+프로젝트 생성시 반드시 Web.xml 생성 체크
+(src -> main -> java,webapp -> webapp 
+앞으로 작업하는 파일은 webapp 하위에 생성된다
+
+HTML 파일은 camel case로 생성 (소문자시작+다음단어첫글자 대문자)
+서버에 올리기전 프로젝트 (왼쪽) -> 올리면 (오른쪽) 이때부터 서버에 올라와서 실행이 가능해진다
+
+preference -> css, html file 인코딩 UTF-8로 변경
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+ "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type"
+		 content="text/html; charset=UTF-8">
+		<title>Insert title here</title>
+	</head>
+	
+	<body>
+	
+	</body>
+</html>
+
+-- 템플릿 생성 -- (New html -> templete 선택 -> new )
+	charset=UTF-8 
+	${encoding} -- 이클립스에 설정한 인코딩으로 적용됨(위에 UTF-8)로 작성했기때문에 이경우 UTF-8로 charset이 설정됨
+	charset=${encoding}
+	
+참고할 템플릿을 보고 위에 형태를 적용시키자
+이름: New HTML File (4.01 transitional)
+설명: html 4.01 transitional
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=${encoding}">
+<title>Insert title here</title>
+</head>
+<body>
+${cursor}
+</body>
+</html>
+
+-----------------------------
+##preference -> general -> web browser(external) -> chrome 설정 해주자##
+internal browser -> default 설정시 이클립스 내부 브라우저(인터넷연결 상관 없음)로 오픈됨
+
+
+컴파일러(Compiler) 	(예시로 JAVA,C,C++등)					
+사람의 언어를 컴퓨터 언어(2진수)로 번역							
+모든 내용을 읽고 오류 여부를 확인하여 완벽할때 실행됨		
+수정(UPDATE)이 존재하면 서버를 내렸다가 다시 올려야된다
+
+인터프리터(Interpreter) - (PYTHON, RUBY등 + HTML)
+작업이 바로바로 수행됨 그러므로 실수가 용납이 된다
+즉 오류여부가 존재해도 실행이 된다(일부 실행 일부 실행안됨)
+수정(UPDATE)이 존재해도 서버를 올리고 내릴 필요없이 바로바로 적용된다
+즉 앞으로 HTML파일의 경우 코드를 수정해도 바로 새로고침만 해서 변경여부를 확인 할 수 있다
+
+--
+인라인태그 줄바꿈없음을 확인하는법
+	(<p style="background-color: red">
+		<strong style="background-color: green">
+			<a style="background-color: gold">
+			</a>
+		</strong>
+	</p> 각각 style로 색깔을 주면 확인하기 쉬움)
+
+서버 -> Add and Remove를 이용해서 서버를 통째로 올리고 내리고 작업을 하지 않고 할 수 있다
+
+http://localhost:8090/HelloFront/ (프로젝트에서 실행) 실행경로가 상대적으로 다름
+http://localhost:8090/HelloFront/webConcept.html (파일에서 실행) 실행경로가 상대적으로 다름
+
+주소 체계(address Path) = url

@@ -1,0 +1,98 @@
+SECURITY CODE
+PRIVATE 를 통해 캡슐화를 해서
+getInstance를 통해 가져와서씀
+
+package util.keyboard; (만들어둔 메소드가 저장된 클래스)
+
+import java.util.Scanner;
+
+/**
+ * 
+ * @author psuu0
+ * 
+ */
+public class Keyboard {
+
+	private static Keyboard keyboardUtility = new Keyboard();
+	private static Scanner scan = new Scanner(System.in);
+
+	/**
+	 * 키보드에서 입력한 문자열 반환
+	 * 
+	 * @return
+	 */
+	private Keyboard() {
+		System.out.println("KeyboardUtility  생성");
+	}
+
+	public static Keyboard getInstance() {
+
+		return keyboardUtility;
+	}
+
+	/**
+	 * 문자열 키보드 입력
+	 * @return
+	 */
+	public String getString() {
+
+		return scan.nextLine();
+	}
+
+	/**
+	 * int형 숫자 키보드 입력
+	 * @return
+	 */
+	public int getInt() {
+
+		int num = 0;
+
+		while (true) {
+			try {
+				num = Integer.parseInt(scan.nextLine());
+				break;
+			} catch (NumberFormatException e) {
+				System.out.println("잘못입력하셨습니다");
+				System.out.println("숫자를 입력해주세요");
+			}
+		}
+		
+		return num;
+	}
+
+}
+
+
+package c; (jar에 포함된 클래스를 이용해서 구현 -- private로 구현되었기때문에 getInstance를 통해 가져와서씀 싱글톤 참조)
+
+import util.keyboard.Keyboard;
+
+public class ExternalMain {
+
+	public static void main(String[] args) {
+		int use = 0;
+		
+		Keyboard keyboardUtilty = null;
+		
+		keyboardUtilty = keyboardUtilty.getInstance();
+		
+		int diceRandom = (int)((Math.random()*6) + 1);
+		
+		System.out.println("=== 주사위 맞추기 ===");
+		System.out.println("주사위가 던져졌습니다.");
+		System.out.println("주사위 숫자는 무엇일까요?");
+		System.out.println("기회는 한 번뿐이니 신중히 입력해주세요!!");
+		System.out.println();
+		System.out.print("숫자를 입력해주세요(1~6)>>\t");
+		
+		use = keyboardUtilty.getInt();
+		
+		System.out.println("주사위 숫자 :유저의 숫자");
+		System.out.println(diceRandom + "\t :" + use);
+		if(diceRandom == use) {
+			System.out.println("정답입니다.");
+		}else {
+			System.out.println("틀렸습니다.");
+		}
+	}
+}
