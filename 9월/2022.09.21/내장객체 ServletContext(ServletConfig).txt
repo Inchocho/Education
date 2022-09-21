@@ -1,0 +1,45 @@
+	public class AppInitServlet extends HttpServlet {
+	
+	@Override
+	//init() 초기화 - 서버가 실행되면서 최초 한번 실행 (DB연결정보를 초기화함)
+	public void init(ServletConfig config) throws ServletException {
+
+		System.out.println("AppInitServlet 준비...");
+		//초기화 이후에도 ServletConfig를 사용하고 싶다면
+		super.init(config);
+
+		ServletContext sc = this.getServletContext();
+
+		Connection conn = null;
+
+		String driver = "";
+		String url = "";
+		String user = "";
+		String password = "";
+
+		try {
+			driver = sc.getInitParameter("driver");
+			url = sc.getInitParameter("url");
+			user = sc.getInitParameter("user");
+			password = sc.getInitParameter("password");
+
+			Class.forName(driver);
+
+			conn = DriverManager.getConnection(url, user, password);
+
+			sc.setAttribute("conn", conn);
+			System.out.println("DB연결 성공");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+ServletConfig 의 getInitParameter() 
+는 미리 web.xml 에다가 지정해둔 파라미터들의 값을 얻어 올 수 있습니다.
+
+뭐 불변의 값들을 미리 xml 에다가 적어놓구 필요할때마다 불러쓰고 싶을 때 하는 거죠.

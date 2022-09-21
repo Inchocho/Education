@@ -1,0 +1,18 @@
+DAO (Data Access Object - 데이터 접근 객체 : 데이터 처리 전문)
+DB의 data에 접근하기 위한 객체이다. DB에 접근하기 위한 로직을 분리하기 위해 사용한다.
+직접 DB에 접근하여 data를 삽입, 삭제, 조회 등 조작할 수 있는 기능을 수행한다.
+MVC 패턴의 Model에서 이와 같은 일을 수행한다.
+
+DTO (Data Transfer Object - 데이터 전송 객체 : 로직을 갖지 않는 순수한 데이터 객체)
+DTO는 계층 간(Controller, View, Business Layer) 데이터 교환을 위한 자바 빈즈(Java Beans)를 의미한다.
+DTO는 로직을 가지지 않는 데이터 객체이고 getter/setter 메소드만 가진 클래스를 의미한다.
+
+VO (Value Object)
+VO는 값 오브젝트로써 값을 위해 쓰인다. Read-Only 특징(사용하는 도중에 변경 불가능하며 오직 읽기만 가능)을 가진다. 
+DTO와 유사하지만 VO는 getter 기능만 존재한다.
+
+DTO와 VO 차이점
+DTO는 인스턴스 개념이고 VO는 리터럴(변하지 않는값) 값 개념이다.
+VO는 값들에 대해 Read-Only를 보장해줘야 존재의 신뢰성이 확보되지만 
+DTO의 경우는 단지 데이터를 담는 그릇의 역할일 뿐 값은 그저 전달되어야 할 대상일 뿐이다
+값 자체에 의미가 있는 VO와 전달될 데이터를 보존해야하는 DTO의 특성상 개념이 다르다.

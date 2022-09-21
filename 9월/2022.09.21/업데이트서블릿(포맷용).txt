@@ -1,0 +1,189 @@
+package spms.servlets;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import spms.dto.MemberDto;
+
+//@WebServlet(value ="주소")를 통해 web.xml에서 서블릿선언,맵핑과정을 단축함
+@WebServlet(value="/member/update")
+public class MemberUpdateServlet extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		//반복사용되는 RequestDispatcher타입 객체를 생성함
+		RequestDispatcher rd = null;
+
+		int mNo = 0;
+
+		String sql = "";
+
+		try {
+			mNo = Integer.parseInt(req.getParameter("no"));
+			// ServletContext를 통해 AppInitServlet에 담긴 sc.setAttribute("conn", conn); (DB연결정보)
+			// 를 가져와서 사용 (DB연결 user / pwd / driver정보등 공통정보를 가져와서사용
+			ServletContext sc = this.getServletContext();
+
+			conn = (Connection) sc.getAttribute("conn");
+
+			sql = "SELECT MNO, PWD, MNAME, EMAIL, CRE_DATE"
+				+ " FROM MEMBERS"
+				+ " WHERE MNO = ?";
+
+			System.out.println("쿼리 수행 성공");
+			// ?랑 pstmt는 짝꿍 ?에 들어갈값을 넣는방법
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mNo);
+
+			rs = pstmt.executeQuery();
+
+			res.setContentType("text/html");
+			res.setCharacterEncoding("UTF-8");
+
+			// 4개의 파라미터를 갖는 생성자를 dto에서 만들자 (MemberDto)
+			int mno = 0;
+			String mname = "";
+			String email = "";
+			Date creDate = null;
+
+			MemberDto memberDto = null;
+
+			if (rs.next()) {
+				mno = rs.getInt("MNO");
+				mname = rs.getString("MNAME");
+				email = rs.getString("EMAIL");
+				creDate = rs.getDate("CRE_DATE");
+
+				// 4개의 파라미터를 갖는 생성자를 MemberDto에서 가져다 쓰면된다
+				// 각각의 상황에 맞는 생성자를 오버로딩해서 구현한다 (일일이 set할필요없음)
+				// 기존 코드 MemberDto memberDto = new MemberDto(); 이후 일일이 memberDto.setNo(mNo)~등 작업함
+				memberDto = new MemberDto(mno, mname, email, creDate);
+			}
+
+			req.setAttribute("memberDto", memberDto);
+
+			rd = req.getRequestDispatcher("./MemberUpdateForm.jsp");
+			
+			rd.forward(req, res);
+
+		} catch (Exception e) {
+			//printStackTrace() 개발자를 위한 오류 - 콘솔창에 오류가뜸
+			e.printStackTrace();
+			
+			req.setAttribute("error", e);
+
+			rd = req.getRequestDispatcher("/Error.jsp");
+			
+			rd.forward(req, res);
+		} finally {
+			// 6단계 jdbc 객체 메모리 회수
+			// rs(resultSet)가 null이 아니라면 rs를 종료(자원 회수)
+			if (rs != null) {
+				try {
+					rs.close();
+					System.out.println("ResultSet 종료");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+					System.out.println("쿼리 종료");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		}
+
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+//	  이작업을 이제 필터로 처리할거임(9.16 Filter)
+//	  CharacterEncodingFilter.java + web.xml 참조	     
+//	  req.setCharacterEncoding("UTF-8");
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		String email = req.getParameter("email");
+		String name = req.getParameter("name");
+
+		int mNo = Integer.parseInt(req.getParameter("mNo"));
+
+		String sql = "";
+
+		try {
+			ServletContext sc = this.getServletContext();
+
+			conn = (Connection) sc.getAttribute("conn");
+
+			sql += "UPDATE MEMBERS";
+			sql += " SET EMAIL=?, MNAME=?, MOD_DATE = SYSDATE";
+			sql += " WHERE MNO = ?";
+
+			// 3단계 sql 실행 객체 준비
+			pstmt = conn.prepareStatement(sql);
+
+			// ? 순서대로 변수(파라미터) 입력 1번째 물음표 , email ...~
+			pstmt.setString(1, email);
+			pstmt.setString(2, name);
+			pstmt.setInt(3, mNo);
+
+			// 4단계 sql문 실행
+			// SELECT조회를 제외한 나머지는 executeUpdate입니다
+			System.out.println(mNo + " 번 수정하였습니다 콘솔");
+			pstmt.executeUpdate();
+
+			res.sendRedirect("./list");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 6 단계 jdbc 객체 메모리 회수
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		} // finally end
+
+	} // doPost end
+
+}
+
+백업 업데이트 서블릿
