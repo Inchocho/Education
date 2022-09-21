@@ -1,0 +1,111 @@
+debug 모드 
+이클립스 라인 옆 더블클릭시 파란색원으로체크됨
+1.브레이크포인트(디버그 할 시점 라인 옆 더블클릭시 파란색원으로체크됨) -> debug선택시 -> debug모드로 perspective 이동
+Variables , Breakpoints, Expressions 
+Variables에 args,numberArr등 name이 뜨고 클릭해보면 형태가 나온다.
+(5) Step Into(F5키):프로그램을 한 스텝진행
+(6) Step Over(F6키):함수 호출을 지나치고 현재 위치 한줄을 실행
+(7) F8을 누를시 다음 브레이크포인트로 바로 이동한다. 다음 브레이크 포인트가 없을시 프로그램은 종료된다.
+debug 모드일때 F6으로 한줄씩 라인을 실행해볼수있다.(배열에 for문이 들어가서 상황별 변화같은걸 체크가능하다)
+
+
+(1~20)무작위 정수로 만든 int[5] 사이즈 배열에서 최소값 최대값을 출력하기
+
+public class MaxAndMin {
+	public static void main(String[] args) {
+
+//		랜덤한 숫자 5개를 배열에 담는다
+//		
+//		그 5개의 숫자중에 가장 큰 값과 작은 값을 출력하시오.
+
+		int ranNum = (int) ((Math.random() * 20)) + 1;
+
+		int[] ranArr = new int[5];
+
+		for (int i = 0; i < 5; i++) {
+			ranNum = (int) ((Math.random() * 20)) + 1;
+			ranArr[i] = ranNum;
+			System.out.println(ranArr[i]);
+		}
+
+		int max = ranArr[0];
+		int min = ranArr[0];
+		
+//1.무작위 정수(1~20) 5개를 ranArr배열안에 넣어준다 
+//ranNum = (int) ((Math.random() * 20)) + 1;
+//2.max와 min 변수에 ranArr[0] 즉 배열의 0번째 인덱스 요소를 넣어준다.
+//int max = ranArr[0];
+//int min = ranArr[0];
+//3.max의 경우 0번째 요소가 ranArr[i]번째 요소보다 작을경우
+//max에 ranArr[i]번째 값을 넣어준다 (삽입정렬)
+//4.min의 경우 0번째 요소가 ranArr[i]번째 요소보다 클 경우
+//min에 ranArr[i]번째 값을 넣어준다 (삽입정렬)
+//5.출력한다
+
+//		 max의 값보다 array[i]이 크면 max = array[i]
+//		 min의 값보다 array[i]이 작으면 min = array[i]
+
+		for (int i = 0; i < ranArr.length; i++) {
+			if (max < ranArr[i]) {
+				max = ranArr[i];
+			}
+			if (min > ranArr[i]) {
+				min = ranArr[i];
+			}
+		}
+
+		System.out.println("MAX값 : " + max);
+		System.out.println("MIN값 : " + min);
+
+	}
+}
+
+배열을 이용한 로또프로그램 (1)
+		int[] num = new int[6];
+		int lotto2 = 0;
+		int temp2 = 0;
+
+		int pos2 = (int) (Math.random() * 45) + 1;
+
+		for (int i = 0; i < num.length; i++) {
+			num[i] = i;
+		}
+
+		for (int i = 0; i < 5000000; i++) {
+			for (int j = 0; j < num.length; j++) {
+				pos2 = (int) (Math.random() * 45) + 1;
+				temp2 = num[j];
+				num[j] = pos2;
+				pos2 = temp2;
+				for (int k = 0; k < j; k++) {
+					if (num[k] == num[j]) {
+						j--;
+						break;
+					}
+				}
+			}
+		}
+--------
+
+int[] arr = new int[6];
+int temp = 0;
+
+for(int i = 0; i<arr.length; i++){
+	arr[i] = (int)(Math.random()*45)+1;
+	for(int j = 0; j<i-1; j++){
+		while(arr[i] == arr[j]){
+			arr[i] = (int)(Math.random()*45)+1;
+		}
+	}	
+}
+
+for(int i = 0; i<arr.length; i++){
+	System.out.println(arr[i]);
+}
+
+
+2차원배열의 길이 (ex i=3j=4사이즈 행렬의경우)
+	System.out.println(numArr.length);  3
+	System.out.println(numArr[0].length); 4
+	
+int[][] evenArr = new int[4][5]; //4행5열(4row5column)	

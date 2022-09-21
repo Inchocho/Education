@@ -1,0 +1,27 @@
+조건문 시작(if,break)
+if문(if, 이중if문) -> 되도록 이중 안사용하는게 좋음(?) 메모리 할당
+if문 작성 순서중요 (학점 프로그램 작성시)
+int score = 0;
+String grade = "";
+if(score >= 95){
+ grade = "A+"
+}else if(score >= 93){
+ grade = "A"
+}else if(score >= 90){
+ grade = "A-" ~ 대충 이렇게
+}
+switch문 (braek 시점에서 종료)
+case~default
+switch(조건 -> 정수,상수형태만 가능)
+case (조건에 맞는값) : 실행
+break(종료)
+case (조건에 맞는값2) ; ~~
+default : ~~ (종료)
+
+for문 진입 (초기화;조건식;증감식)
+int sum = 0;
+for(int i=1; i<=10; i++){ --> for문 내부 지역변수인 int i는 for문종료시 소멸됨 
+    sum = sum + i;
+}
+System.out.println("1부터 10까지 합은 " + sum);
+System.out.println(i); --> 에러남(for문 내부에 있는 변수 i였기때문에)

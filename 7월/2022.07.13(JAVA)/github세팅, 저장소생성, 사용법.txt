@@ -1,0 +1,49 @@
+깃헙 주소(강사님)
+https://github.com/psuu0007/AWSICHFullGroup
+
+Github 사용법
+이클립스 -> show view -> git repository, git staging open(커밋하기전 변경된 내용이 있는지 상태변화 체크용)
+github에서 내 리포지터리 주소 복사 
+https://github.com/Inchocho/AWSICHFullGroup.git
+
+저장소 경로 -> D:\AwsRepository 로 바꿨음
+
+자바프로젝트 -> 우클릭 -> Team -> Synchronized -> Team Synchronized로 넘어감(perspective)
+
+먼저 commit -> 그다음 push(왠만하면 일단 따로)
+
+내 github에서 setting -> developer Setting -> Personal access tokens -> generate new token (Expiration 설정 no로함 (파기일))
+-> 권한 전부 체크 후 generate token(토큰발급) -> 내토큰 : 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
+
+preference -> general -> security -> secure storage -> contents -> GIT -> 에 아까 저장한 깃 아이디와 발급받은토큰값(비밀번호)가 저장되어있음
+로그인 체크했는데 잘못입력했을경우 계속 오류가 발생하므로 여기서 저장된 로그인정보를 삭제하고 다시 로그인한다.
+
+무조건 github버전이 최신버전이므로 워크스페이스 실행시 pull을 먼저 해야됨. 
+즉 github 버전과 이클립스에서 자바프로젝트의 버전을 동일하게 맞춰준다.
+
+push
+ id:herais0001@gmail.com
+ pass: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
+ 로그인 체크해서 다음부터 자동으로 로그인처리 
+ ---------------------------------------------
+ show view -> git repositories 추가 -> Clone a git Repository로만 작업할거임
+ 
+1.깃허브 저장소 유무 (생성)
+2.깃허브 저장소에서 저장소 생성
+3.깃허브 저장소를 이클립스로 클론 레파지토리 생성 (클론레퍼지토리 주소 변경함 D:\AwsRepository)
+4.로컬 저장소가 생겼는지 확인
+5.이클립스 프로젝트에서 관련 프로젝트를 하나 선택  (공유할(깃헙에 올릴) 자바프로젝트나 선택)
+6.share project 수행				(우클릭 Team -> share Project 선택) 
+7.깃허브와 연동						(Team -> Synchronized workspace)
+8.이클립스에서 관련있는 소스코드들을 add index  (Synchronized perspective에서 해당 자바 project 우클릭 -> add to index)
+9.커밋 메시지 입력 후 커밋(커밋 메시지는 입력해야함 뭔작업을 했는지 메모) (Git Staging에 add index하고나면 변경된상태로 파일확인가능 -> 커밋메시지 입력(무슨작업을 했는지~ 무슨파일을 올리는지 커밋하는지)
+10.push로 깃허브와 연동 (push로 깃허브에 넣음) (main ↑1) Commit and push로 넣을때는 이럼
+11.깃허브 체크
+12.folk 저장소명이 동일한건 하나만 존재가능(기존 folk한 repository를 삭제한뒤 다시 받아오면됨)
+13.folk도 clone repository로 가져온다. (디렉토리 D:\AwsRepository\저장소명
+
+무조건 최신버전 기준점은 Github Repository에 저장된 내용이다
+깃허브에서 자바파일을 에디트 한 다음 이클립스에서 내용을 업데이트 받는다.
+Team -> Synchronized -> 이경우 로컬파일은 변경X - Remote File(깃허브 리포지터리의 최신데이터) 즉 최신버전인 깃허브 데이터를 다운받는 상황이다. (main ↓1) 표시됨 
+이 내용을 반영하는 방법 -> 해당 프로젝트를 기준으로 우클릭 -> Team -> pull 땡기면 깃허브 해당 최신데이터 내용이 갱신된다. (main ↓1)표시 사라지고
+

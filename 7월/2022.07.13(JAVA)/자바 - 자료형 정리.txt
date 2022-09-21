@@ -1,0 +1,616 @@
+[1]~[n]으로 큰 목차 정리
+#############[1]정수형(byte,short,int,long)#######################################
+default : 0 int(-21~21억)
+long a = 300; -> (int)300; 따로 표기해야 타입변환됨 300L,l
+
+int age = 10;
+long countOfStar = 8764827384923849L;
+
+#############[2]실수형(float,double)#######################################
+default : 0.0 double(-1.7e^-308 ~ )
+float sNum = (double)3.12312421; 3.12312421F,f
+
+float pi = 3.14F;
+double morePi = 3.14159265358979323846;
+
+#############[3]8진수,16진수#############
+int octal = 023; // 십진수 19 
+int hex = 0xc; // 십진수 12
+
+#############[4]불린형(boolean)#######################################
+default : false(true,false를 가짐)
+
+boolean isTrue = true;
+boolean isFalse = false;
+
+주로 조건문 판단기준으로 많이사용됨
+
+2 > 1 // true
+1 == 2 // false
+isTrue == isFalse // false
+
+int i = 3;
+boolean isOdd = i % 2 == 1; // true
+
+#############[5]문자(char) -한글자(2byte)-#######################################
+default : '\u0000', 유니코드값임 ('' 홑따옴표)
+
+char a1 = 'a';  // 문자로 표현		   출력값 : a
+char a2 = 97;  // 아스키코드로 표현	   출력값 : a
+char a3 = '\u0061'; // 유니코드로 표현  출력값 : a
+
+#############[6]문자열(String)#######################################
+default : ""; ("" 쌍따옴표)
+(1)String a = "JAVA~!!"; //(2) String a = new String("JAVA~!!"); -> 두경우 같은값을 같지만 완전 동일하진않음
+(1)전자의 경우 객체생성없이 리터럴(고정된값)을 갖고
+(2)두번째 방식의 경우 항상 새로운 String 객체를 만든다
+
+//원시자료형(primitive) vs Wrapper 클래스
+		int				Integer
+		long			Long
+		double			Double
+		float			Float
+		boolean			Boolean
+		char			Char
+ ArrayList, HashMap, HashSet 등은 데이터 저장시 원시 자료형 대신 그에 대응하는 Wrapper 클래스들을 사용해야 한다		
+
+
+문자열 내장 메소드 (즉 Class String에 내장된 메소드)	
+(1)equals -> a.equals(b)
+equals : 두개의 문자열이 동일한지를 비교하여 결과값을 리턴한다.(true/false로 리턴값을 반납한다)
+
+String a = "Hello";
+String b = "Hello";
+String c = "Hello ";
+
+System.out.println(a.equals(b)); //true
+System.out.println(a.equals(c)); //false
+
+문자열의 값을 비교할때는 반드시 equals 를 사용.
+문제가 생기는 경우 ( == 연산자는 동일한 객체인지를 판별하므로 false가 떨어짐)
+String a = "hello";				//고정된값 리터럴값을 넣음 객체 생성 없음
+String b = new String("hello");	//새로운 String 객체 생성하고 "hello"를 집어넣음
+System.out.println(a.equals(b));  // true
+System.out.println(a == b);  // false
+
+(2)indexOf  -> a.indexOf(찾을 문자,문자열)/인덱스는 0부터센다.  "JAVA" = [0] = J [1] = A [2] = V [3] = A
+
+indexOf는 문자열에서 특정 문자가 시작되는 위치(인덱스)를 리턴한다.
+String a = "Hello Java";
+String a = "Hello Java";
+System.out.println(a.indexOf("Java"));  // 6 출력
+
+(3)contains -> 문자열에서 특정 문자(열)가 포함되어 있는지 여부를 리턴값 true/false로 반환
+
+String a = "Hello Java";
+System.out.println(a.contains("Java"));	//true
+
+(4)charAt -> 문자열에서 특정 위치의 문자(char)를 리턴한다.
+
+String a = "Hello Java";
+System.out.println(a.charAt(6)); // J 출력됨 
+
+(5)replaceAll -> 문자열 중 특정 문자열을 다른 문자열로 바꾸고자 할 때 사용 replaceAll("a","b"); a문자열->b문자열 로 변경
+
+String a = "Hello Java";
+System.out.println(a.replaceAll("Java", "World")); // a = "Hello World";
+
+(6)substring -> substring은 문자열 중 특정 부분을 뽑아낼 경우에 사용한다. substring(n,m); n에서 m번째까지 문자열 출력 (m은 포함안됨)
+
+String a = "Hello Java";
+System.out.println(a.substring(0, 4));  // Hell 출력
+
+(7)toUpperCase <-> toLowerCase : toUpperCase는 문자열을 모두 대문자로 변경할 때 사용한다. (모두 소문자로 변경할때는 -> toLowerCase를 사용한다.)
+
+String a = "Hello Java";
+System.out.println(a.toUpperCase()); // HELLO JAVA 출력
+
+(8)split -> split 메소드는 문자열을 특정 구분자로 분리하는 메소드이다. split("구분자") 
+
+String a = "a:b:c:d";
+String[] result = a.split(":"); // result = {"a","b","c","d"}
+
+//문자열 포매팅 (String.format) 메소드
+String.format("I have a ((%d)들어갈 값 타입) pens", 3(들어갈 값))
+String.format("I have a %d(타입1) pens and %s(타입2) pens", 3(타입1값), "nice"(타입2값));
+
+(1)숫자 바로 대입
+System.out.println(String.format("I eat %d apples.", 3));  // "I eat 3 apples." 출력
+(2)문자열 대입
+System.out.println(String.format("I eat %s apples.", "five"));  // "I eat five apples." 출력
+(3)숫자값을 변수로 대입
+int number = 3;
+System.out.println(String.format("I eat %d apples.", number));  // "I eat 3 apples." 출력
+(4)2개이상 값을 넣기
+int number = 10;
+String day = "three";
+// "I ate 10 apples. so I was sick for three days." -> %d,%s 순서대로 값을 넣어주면 된다.
+System.out.println(String.format("I ate %d apples. so I was sick for %s days.", number, day));
+
+문자열 포맷 코드
+%s	문자열(String)
+%c	문자 1개(character)
+%d	정수(Integer)
+%f	부동소수(floating-point)
+%o	8진수
+%x	16진수
+%%	Literal % (문자 % 자체) %% -> %를 출력함(들어갈값 따로 안적음 이경우)
+
+System.out.println(String.format("Error is %d%%.", 98));  // "Error is 98%." 출력
+
+포맷코드 정렬과 공백처리 (%숫자s -> 의미 들어갈 값의 문자열의 크기를 숫자로 지정)
+System.out.println(String.format("Error is %10s", "good")); "Error is       good"; (10의 문자열에 값을 넣음 오른쪽 정렬)
+System.out.println(String.format("Error is %-10s", "good")); "Error is good     "; (-10의 문자열 즉 반대방향으로 셈 왼쪽 정렬)
+
+소수점 표현 (%.f, %.d)
+System.out.println(String.format("용액을 %.4f"ml 만큼 넣어주세요.",3.1123532)); "용액을 3.1123ml 만큼 넣어주세요."; (소숫점 4자리까지)
+ 
+#############[7]StringBuffer -> 문자열을 추가하거나 변경할때 사용하는 자료형 (객체를 한번만 생성하고 mutable함)#######################################
+(1)append("추가할 문자열 입력") 메소드 -> 문자열을 추가한다.
+
+StringBuffer sb = new StringBuffer();  // StringBuffer 객체 sb 생성					
+sb.append("hello");
+sb.append(" ");
+sb.append("jump to java");
+String result = sb.toString(); --> toString() 메소드를 이용하면 String 자료형으로 변경
+System.out.println(result); //hello jump to java 출력
+--------------------------
+String result = "";
+result += "hello";
+result += " ";
+result += "jump to java";
+System.out.println(result); //hello jump to java 출력 
+
+위와 아래는 결과는 같지만 밑에 경우 객체가 4번생성된다. ( + 연산자가 붙을때마다 새로운 String 객체가 생성됨 )
+StringBuffer의 경우 객체를 한번만 만들고 변경가능 (mutable한 변경가능한 타입)
+
+간단한 작업의 경우 String(상대적으로 가벼움) <-> 문자열 변경이 많은 복잡한 작업은 StringBuffer 사용(메모리 사용량 높음,무거움)
+
+StringBuffer와 비슷한 StringBuilder ( 차이점 -> 성능이 더좋음, 동기화 필요없는경우 StringBuilder가 유리//StringBuffer는 멀티스레드 환경에서 안전함)
+
+StringBuilder sb = new StringBuilder();
+sb.append("hello");
+sb.append(" ");
+sb.append("jump to java");
+String result = sb.toString();
+System.out.println(result);
+
+(2)insert(n,문자열) 메소드 -> 특정위치(n)에 문자열을 추가한다.
+
+StringBuffer sb = new StringBuffer();
+sb.append("jump to java");
+sb.insert(0, "hello ");
+System.out.println(sb.toString()); // hello jump to java
+
+(3)substring -> String 자료형 SubString과 동일 substring(n,m); n에서 m번째까지 문자열 출력 (m은 포함안됨)
+
+StringBuffer sb = new StringBuffer();
+sb.append("Hello jump to java");
+System.out.println(sb.substring(0, 4)); //  Hell 출력
+
+#############[8]Array(배열) [] 형식 -> 타입[] 변수명  = {타입에 맞는 값 입력,}#######################################
+선언하는 방법 
+int[] intArr1;
+int []intArr2;
+int intArr3[];
+--------------
+초기화 하는법
+intArr1 = new int[3]; //사이즈3인 배열로 intArr1을 초기화함 초기값은 int타입의 경우{0,0,0}이렇게 들어감
+
+int[] odds = {1, 3, 5, 7, 9}; //이경우 사이즈5인 배열로 초기화 + 배열의 값이 정해진것
+
+String[] weeks = {"월", "화", "수", "목", "금", "토", "일"};
+
+(1)배열의 길이는 고정되어있다. 
+String[] weeks = new String[7];
+weeks[0] = "월";
+weeks[1] = "화";
+weeks[2] = "수";
+weeks[3] = "목";
+weeks[4] = "금";
+weeks[5] = "토";
+weeks[6] = "일";
+
+초기값 없이!! 배열 변수를 만들때에는 반드시 길이에 대한 숫자값이 필요
+String[] weeks = new String[];    // 길이에 대한 숫자값이 없으므로 컴파일 오류가 발생한다.
+
+String[] weeks = {"월", "화", "수", "목", "금", "토", "일"};
+System.out.println(weeks[3]); // "목" 출력(배열은 0부터 센다 0 : 월, 1 : 화)
+
+String[] weeks = {"월", "화", "수", "목", "금", "토", "일"};
+for (int i=0; i<weeks.length; i++) {
+    System.out.println(weeks[i]);
+}
+결과 -> 월 줄바꿈 화 줄바꿈 수 ... 일까지 출력됨
+
+ArrayIndexOutOfBoundsException -> 배열크기초과한 값을 얻으려고하면 나는 에러 Sysout.printlf(weeks[7]);
+
+//[8]-2 2차원배열!!!
+선언하는 방법(반드시임 2차원배열은)
+int[][] array;
+초기화하는법
+array = new int[1][5]; -> 배열내에 int형 기본값0이 들어감 -> {{0},{0,0,0,0,0}}; 이렇게 들어감
+
+2차원배열 예시(구구단)
+int[][] array = new int[9][9];
+
+for(int i=1; i<10; i++){
+	for(int j=1; j<10; j++){
+		array[i-1][j-1] = i * j;				
+	}
+}
+
+for (int i = 0; i < array.length; i++) {
+	System.out.print((i + 1) + "단: ");
+	System.out.println(Arrays.toString(array[i]));
+	System.out.println();
+}
+
+int[][] array = new int[2][4];
+
+2차원배열([][]i,j)값 -------------------> (i) ↑(j)
+1	2	3	4
+5	6	7	8
+
+2(row)행 4(column)열로 이루어진 행렬 (2차원배열)이다.
+	 y           y			 y			 y 
+x[0][0] = 1 x[0][1] = 2 x[0][2] = 3 x[0][3] = 4
+x[1][0] = 5 x[1][1] = 6 x[1][2] = 7 x[1][3] = 8
+
+array[0][0] = 1; array[0][1] =2;
+
+x행(row) x(i)   -> 
+y열(column) y(j)↓
+
+#############[9] 리스트 (List) #######################################
+리스트와 배열의 가장 큰 차이는 크기가 정해져 있지 않고 동적으로 변한다는 점이다.
+
+(1)ArrayList -> List 자료형 중 가장 간단한 형태의 자료형인 ArrayList
+
+import java.util.ArrayList;
+
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList pitches = new ArrayList();	// 새 ArrayList 객체 pitches를 생성
+        pitches.add("138");						// add메소드를 이용하여 객체에 값을 삽입
+        pitches.add("129");
+        pitches.add("142");
+    }
+}
+
+(1)-1 add메소드 -> ArrayList객체에 값을 넣음 ArrayList객체명.add(값을 넣을 위치,값); // add(값)만 입력할경우 알아서 맨뒤로 들어감
+(1)-2 get메소드 -> ArrayList객체에 값을 얻음 ArrayList객체명.get(알고싶은 객체 인덱스 위치); 
+
+System.out.println(pitches.get(1)); --> 129
+
+(1)-3 size메소드 -> ArrayList객체의 크기를 확인하는 메소드, ArrayList의 갯수를 리턴한다.
+
+System.out.println(pitches.size()); --> 3
+
+(1)-4 contains 메소드 -> ArrayList객체의 내부에 해당 항목(값)이 있는지 판별하여 boolean으로 결과를 리턴한다.
+
+System.out.println(pitches.contains("142")); --> true
+
+(1)-5 remove 메소드 -> ArrayList객체 내부의 해당하는 항목(값)을 삭제하고 결과를 boolean으로 리턴 (remove(객체의 해당하는값))
+				  -> or ArrayList객체의 해당 인덱스 항목을 삭제하고 삭제한 항목(값)을 리턴     (remove(객체인덱스값))
+				  
+System.out.println(pitches.remove(0)); --> 138 (인덱스0번 즉 맨앞에 항목이 삭제됨)				
+
+(1)-6 제네릭스(Generics)
+객체를 포함하는 자료형도 어떤 객체를 포함하는지에 대해서 명확하게 표현할 것을 권고하고 있다.
+ArrayList<String> pitches = new ArrayList<String>();  
+
+ArrayList<String> -> 의미는 ArrayList 안에 담을 수 있는 자료형은 String뿐이다라고 정의한것이다.
+자료형 ArrayList 타입 바로옆에 <String>문구가 있냐 없냐의 차이
+
+(여기서 String 타입 자료형만 넣을 수 있다는것은 예시 예를들어 자료형으로 <Integer>, <Animal>, <Dog> 등 여러가지 정의한 자료형을 사용 할 수 있다.)
+
+제네릭스 예시(1) 제네릭스를 명시하지 않은 경우
+ArrayList pitches = new ArrayList();
+aList.add("138");
+aList.add("129");
+
+String one = (String) pitches.get(0);	--> (String) 형변환 해야됨
+String two = (String) pitches.get(1);
+
+(1)예시의 경우 ArrayList 안에 추가되는 객체는 Object 자료형으로 인식된다
+Object 자료형은 모든 객체가 상속하고 있는 가장 기본적인 자료형이다. 
+따라서 ArrayList 객체인 pitches에 값을 넣을 때는 문제가 안되지만 값을 가져올 경우에는 
+항상 Object 자료형에서 String 자료형으로 다음과 같이 형변환(casting)을 해 주어야만 한다.
+
+String one = (String) pitches.get(0);	--> (String) 형변환 해야됨!!!
+
+제네릭스 예시(2) 제네릭스를 명시한 경우 ArrayList<String> 
+ArrayList<String> pitches = new ArrayList<>();
+aList.add("138");
+aList.add("129");
+
+String one = pitches.get(0);  // 이미 ArrayList타입 객체 pitches에는 String자료형만 추가되는것을 정의했으므로 형변환 필요없음
+String two = pitches.get(1);  // 이미 ArrayList타입 객체 pitches에는 String자료형만 추가되는것을 정의했으므로 형변환 필요없음
+
+[9]-1 다양한 방법으로 ArrayList 만들기
+
+import java.util.ArrayList;
+
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList<String> pitches = new ArrayList<>();  // 제네릭스를 사용한 표현 ArrayList타입 객체 pitches의 자료형은 <String> String형만 넣겠다.
+        pitches.add("138");
+        pitches.add("129");
+        pitches.add("142");
+        System.out.println(pitches);  // [138, 129, 142] 출력
+    }
+}
+[9]-2 이미 데이터가 존재하는경우 String[] data = {"138", "129", "142"};  // 이미 투구수 데이터 배열이 있다.
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Sample {
+    public static void main(String[] args) {
+        String[] data = {"138", "129", "142"};  // 이미 투구수 데이터 배열이 있다.
+        ArrayList<String> pitches = new ArrayList<>(Arrays.asList(data)); // ArrayList<>()여기에 <- Arrays.asList(data)가 들어감
+        System.out.println(pitches);  // [138, 129, 142] 출력
+    }
+}
+[9]-3 이미 데이터가 존재하는경우 II -> 배열이 아닌 바로 다이렉트로 String타입 자료형 여러개를 전달
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList<String> pitches = new ArrayList<>(Arrays.asList("138", "129", "142"));
+        System.out.println(pitches);
+    }
+}
+
+#### String.join 메소드 ArrayList타입 객체 pitches의 각 요소를 (,)로 구분하여 하나의 문자열로 만드는 방법 String.join("구분자",리스트객체);로 사용한다
+현재 ArrayList타입 객체 pitches = {"138","129","142"};
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList<String> pitches = new ArrayList<>(Arrays.asList("138", "129", "142"));
+        String result = String.join(",", pitches);
+        System.out.println(result);  // 138,129,142 출력
+    }
+}
+
+밑에 과정이 String.join(",", pitches)로 단축된것이다.
+//        String result = "";
+//        for (int i = 0; i < pitches.size(); i++) { (pitches의 0 + , + 1 + , + 2 + ,)처리를 하고 마지막에 substring으로 마지막 ,를 지워줘야한다.
+//            result += pitches.get(i);
+//            result += ",";  // 콤마를 추가한다.
+//        }
+//        result = result.substring(0, result.length() - 1);  // 마지막 콤마는 제거한다.	
+
+String.join은 ArrayList의 메소드가 아닌 String의 메소드이다. -> 문자열 배열(array)에서도 사용 가능하다.
+
+public class Sample {
+    public static void main(String[] args) {
+        String[] pitches = new String[]{"138", "129", "142"}; //String 배열타입 객체 pitches
+        String result = String.join(",", pitches);			  //구분자 ,로 pitches의 객체의 요소를 하나의 문자열로 만듬
+        System.out.println(result);  // 138,129,142 출력
+    }
+}
+
+(1)-7 리스트 정렬하기  (Java 8버전부터 사용 가능)
+ArrayList<String> pitches 객체 "138", "129", "142"의 요소를 정렬하기
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList<String> pitches = new ArrayList<>(Arrays.asList("138", "129", "142"));
+        pitches.sort(Comparator.naturalOrder());  // 오름차순으로 정렬
+        System.out.println(pitches);  // [129, 138, 142] 출력
+    }
+}
+
+오름차순(순방향) 정렬 - Comparator.naturalOrder()
+내림차순(역방향) 정렬 - Comparator.reverseOrder()
+
+#############[10] 맵 Map -> Map은 Key와 Value를 한 쌍으로 갖는 자료형이다. (key값과 value값을 쌍으로) #######################################
+(예시)
+key	     value
+people	  사람
+baseball  야구
+
+Map은 리스트나 배열처럼 순차적으로(sequential) 해당 요소 값을 구하지 않고 key를 통해 value를 얻는다. (key값을 입력해서 key에 해당하는 value값을 얻는다.)
+맵(Map)의 가장 큰 특징이라면 key로 value를 얻어낸다는 점이다.
+순서에 의존하지 않고 key로 value를 가져오는데 있다. 
+
+(1)HashMap -> Map중 가장 간단한 기본형 HashMap (Map도 List와 마찬가지로 인터페이스(Interface)이다.
+Map 인터페이스를 구현한 Map자료형에는 HashMap,LinkedHashMap,TreeMap등이 있다.
+
+(1)-1 put 메소드 put("키값","밸류값");
+
+import java.util.HashMap;
+
+public class Sample {
+    public static void main(String[] args) {
+        HashMap<String, String> map = new HashMap<>();	// HashMap도 ArrayList처럼 Generics 즉 키,밸류값의 자료형을 정의한다. HashMap<String,String>
+        map.put("people", "사람");	HashMap타입 (키,밸류가 스트링타입)인 객체 map에 key값이 people, value값이 사람인 요소(?)를 넣음
+        map.put("baseball", "야구");
+    }
+}
+
+(1)-2 get 메소드 get("key값") -> map객체.get("key값");
+getOrDefault메소드 map객체.getOrDefault("키값","밸류값");
+
+System.out.println(map.get("people"));  // "사람" 출력
+
+맵의 key에 해당하는 value가 없을 경우에 get 메소드를 사용하면 다음처럼 null이 리턴된다.
+System.out.println(map.get("java"));  // null 출력
+이때 null 대신 디폴트 값을 얻고 싶은 경우에는 getOrDefault 메소드를 사용한다.
+System.out.println(map.getOrDefault("java", "자바"));  // "자바" 출력
+
+(1)-3 containsKey 메소드 : 맵(Map)에 해당 키(key)가 있는지를 조사하여 그 결과값을 리턴한다. (true/false)
+System.out.println(map.containsKey("people"));  // true 출력 (HashMap타입 객체 map에 people 키값이 있기때문에 true를 출력)
+
+(1)-4 remove 메소드 : remove 메소드는 맵(Map)의 항목을 삭제하는 메소드로 key값에 해당되는 아이템(key, value)을 삭제한 후 그 value 값을 리턴한다.
+System.out.println(map.remove("people"));  // "사람" 출력 (즉 삭제할 key값을 입력하면 해당key와 value가 삭제되고 삭제된 key의 value값을 리턴한다.)
+
+(1)-5 size 메소드 :  size 메소드는 Map의 갯수를 리턴한다. // (1)-4에서 key값 people을 삭제했으므로 하나남음 ㅇㅇ
+System.out.println(map.size());  // 1 출력
+
+(1)-6 keySet 메소드 : keySet은 맵(Map)의 모든 Key를 모아서 리턴한다.
+
+import java.util.HashMap;
+
+public class Sample {
+    public static void main(String[] args) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("people", "사람"); (key값 value값)
+        map.put("baseball", "야구");
+        System.out.println(map.keySet());  // [baseball, people] 출력
+    }
+}
+
+모든 키셋을 배열형태로 리턴한다. 
+
+keySet() 메소드는 Map의 모든 Key를 모아서 Set 자료형으로 리턴한다.
+Set 자료형은 다음과 같이 List 자료형으로 바꾸어 사용할수도 있다.
+List<String> keyList = new ArrayList<>(map.keySet());
+
+//[11] 집합 자료형 (Set 자료형)
+중복을 허용하지 않는다.
+순서가 없다(Unordered).
+집합 자료형은 순서가 없기(unordered) 때문에 인덱싱으로 값을 얻을 수 없다.
+집합 자료형을 정말 유용하게 사용하는 경우는 교집합, 합집합, 차집합을 구할 때이다.
+
+(1)HashSet 
+
+import java.util.Arrays;
+import java.util.HashSet;
+
+public class Sample {
+    public static void main(String[] args) {
+        HashSet<String> set = new HashSet<>(Arrays.asList("H", "e", "l", "l", "o"));
+        System.out.println(set);  //  [e, H, l, o] 출력
+    }
+}
+
+(1)-1 집합자료형의 사용예시
+교집합: retainAll 메소드 , 합집합: addAll 메소드 , 차집합: removeAll 메소드
+import java.util.Arrays;
+import java.util.HashSet;
+
+public class Sample {
+    public static void main(String[] args) {
+        HashSet<Integer> s1 = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        HashSet<Integer> s2 = new HashSet<>(Arrays.asList(4, 5, 6, 7, 8, 9));
+		
+		HashSet<Integer> intersection = new HashSet<>(s1);  // s1으로 intersection 생성
+        intersection.retainAll(s2);  // 교집합 수행
+        System.out.println(intersection);  // [4, 5, 6] 출력
+		
+        HashSet<Integer> union = new HashSet<>(s1);  // s1으로 union 생성
+        union.addAll(s2); // 합집합 수행
+        System.out.println(union);
+
+        HashSet<Integer> substract = new HashSet<>(s1);  // s1으로 substract 생성
+        substract.removeAll(s2); // 차집합 수행
+        System.out.println(substract);  // [1, 2, 3] 출력		
+    }
+}
+ 집합(Set)형 자료 관련 메소드 
+(1)-2 add 메소드 : 집합 자료형에 값을 추가할때 사용하는 메소드
+
+	HashSet<String> set = new HashSet<>();
+	set.add("Jump");
+	set.add("To");
+	set.add("Java");
+	System.out.println(set);  // [Java, To, Jump] 출력
+
+(1)-3 addAll 메소드 : 여러 개의 값을 한꺼번에 추가할 때 사용하는 메소드 + 합집합을 구할때도 사용
+
+	HashSet<String> set = new HashSet<>();
+	set.add("Jump");
+	set.addAll(Arrays.asList("To", "Java"));
+	System.out.println(set);  // [Java, To, Jump] 출력
+
+(1)-4 remove 메소드 : 특정 값을 제거할 때 사용하는 메소드 + 차집합을 구할때 removeAll 메소드 사용
+
+	HashSet<String> set = new HashSet<>(Arrays.asList("Jump", "To", "Java"));
+	set.remove("To");
+	System.out.println(set);  // [Java, Jump] 출력
+	
+#############[11] 상수집합 (Enum)#######################################
+상수집합 Enum의 사용 예시
+
+public class Sample {
+    enum CoffeeType {
+        AMERICANO,
+        ICE_AMERICANO,
+        CAFE_LATTE
+    };
+
+public static void main(String[] args) {
+	System.out.println(CoffeeType.AMERICANO);  // AMERICANO 출력
+	System.out.println(CoffeeType.ICE_AMERICANO);  // ICE_AMERICANO 출력
+	System.out.println(CoffeeType.CAFE_LATTE);  // CAFE_LATTE 출력
+	
+	이처럼 반복문for문을 통해서도 사용 가능하다( for(CoffeeType type: CoffeeType.values()) )
+	for(CoffeeType type: CoffeeType.values()) {
+		System.out.println(type);  // 순서대로 AMERICANO, ICE_AMERICANO, CAFE_LATTE 출력
+	}	
+}
+
+
+int americano = countSellCoffee(CoffeType.AMERICANO);  // 아메리카노의 오늘 판매갯수
+
+상수집합 Enum의 사용 이유
+매직넘버(1과 같은 숫자 상수값)를 사용할 때보다 코드가 명확해 진다.
+잘못된 값을 사용함으로 인해 발생할수 있는 위험성이 사라진다.
+
+#############[12] 형변환과 final#######################################
+형변환
+문자열 String num = "123"; -> 자료형은 문자열 String이지만 내용은 숫자로 이루어진 값이다.
+문자열을 정수(integer)로 바꿀수 있다. 문자열을 정수로 바꾸려면 다음과 같이 Integer 클래스를 사용한다. (Integer는 int형의 Wrapper 클래스)
+
+String num = "123";
+int n = Integer.parseInt(num);
+System.out.println(n);  // 123 출력 --> 정수형으로 변경된 123 숫자가 출력됨
+
+정수형 123을 문자열로 바꾸는 방법(1)
+	int n = 123;
+	String num = "" + n;
+	System.out.println(num); 
+
+정수형 123을 문자열로 바꾸는 방법(2)
+	int n = 123;
+	String num1 = String.valueOf(n);
+	String num2 = Integer.toString(n);
+	System.out.println(num1);  // 123 출력
+	System.out.println(num2);  // 123 출력	
+	
+문자열 123.456을 실수로 바꾸는 방법
+	String num = "123.456";
+	double d = Double.parseDouble(num);
+	System.out.println(d);
+
+정수에서 실수로 형변환	
+	int n1 = 123;
+	double d1 = n1;.  // 정수를 실수로 바꿀때에는 캐스팅이 필요없다.
+	System.out.println(d1);  // 123.0 출력
+
+실수에서 정수로 형변환(소숫점 생략됨)
+	double d2 = 123.456;
+	int n2 = (int) d2;. // 실수를 정수로 바꿀때에는 반드시 정수형으로 캐스팅해 주어야 한다.
+	System.out.println(n2);  // 소숫점이 생략된 123 출력	
+
+실수 형태의 문자열을 정수로 변경하려고 하면 NumberFormatException이 발생
+	String num = "123.456";
+	int n = Integer.parseInt(num);  // 실수 형태의 문자열을 정수로 변환할 경우 NumberFormatException이 발생한다.
+
+final은 프로그램 수행 도중 그 값이 변경되면 안되는 상황에서 사용한다.
+final은 자료형에 값을 단 한번만 설정할수 있게 강제하는 키워드
+값을 한번 설정하면 그 값을 다시 설정할 수 없다
+리스트의 경우도 final로 선언시 재할당은 불가능
+리스트의 경우 final로 선언시 리스트에 값을 더하거나(add) 빼는(remove) 것은 가능하다. 다만 재할당만 불가능하다

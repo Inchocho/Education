@@ -1,0 +1,36 @@
+이클립스 프로젝트 
+EXPORT -> GENERAL -> Archive File로 넘겨주고 (.classpath,.project 체크하면 이클립스 최적화) 왠만하면 체크하고받음
+IMPORT -> GENERAL -> Existing Projects into Workspace 받을때
+
+문자열 + anyotherType( 다른타입) => 문자열 + 문자열로 계산된다 
+(ex) ace + 11 + 2 = ace112
+(ex2)순서가 중요 -> 11 + 2 + ace = 13ace (숫자 + 숫자 + 문자열경우 먼저 숫자+숫자 사칙연산 후 문자열을 만나므로 13ace가 된다)
+
+인코딩 - 디코딩 (인코딩 UTF-8 권장)
+세팅 -> text는 MS949(기존) / java source file UTF-8
+
+windows -> preference -> Content Types -> text -> java source file - Default encoding : UTF-8 설정 
+Default encoding : (아무것도 안적을시 운영체제 기반으로 적용됨 디폴트값으로 MS949 기존 ASCII CODE 등)
+windows -> preference -> Content Types -> text  -> Default encoding : UTF-8 설정  -> 다시 디폴트(MS949로 세팅)
+
+windows -> preference -> general -> edit -> editor -> Colors and Fonts ( font 16~ 추천)
+windows -> preference ->workspace -> Text file encoding (UTF-8)로 변경
+windows -> preference ->Java -> Compiler -> compiler Lv 17 -> 1.8로 변경
+windows -> preference ->Java -> Installed JREs -> 기존 JRE 삭제 ->  Add(Standard) -> C:\java\jdk8 (JRE home)
+--> 새 자바프로젝트부터는 생성한 JRE 체크하자
+자바: jdk 환경변수(JAVA_HOME 변수추가 -> path에  %JAVA_HOME%\bin 경로 추가 
+
+과제(다음주 월요일까지)
+
+집 컴퓨터에 이클립스 환경 구축 (2021년 12월 / 자바 1.8)
+자바버전
+이클립스버전 학원과 일치
+
+자바 프로젝트를 만들어서 
+조건: 변수 조금 활용
+
+자신의 이름
+나이
+
+강사에게 하고 싶은 말을 콘솔에 출력해서 콘솔창 사진으로 찍어서 파일질라로 업로드 (java -> 과제제출 폴더)
+사진명: 조현석(이름)

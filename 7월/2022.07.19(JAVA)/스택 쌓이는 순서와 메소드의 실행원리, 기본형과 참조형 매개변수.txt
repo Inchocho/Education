@@ -1,0 +1,104 @@
+프로그램 흐름
+스택 쌓이는순서
+
+(1)main메소드 
+(2)main메소드  -> 참조변수 cs
+(3)main메소드  -> 참조변수 cs -> first 메서드 
+(4)main메소드  -> 참조변수 cs -> first 메서드  -> second 메서드 
+(5)main메소드  -> 참조변수 cs -> first 메서드  -> second 메서드  -> second메서드의 sysout1 
+(6)main메소드  -> 참조변수 cs -> first 메서드  -> second 메서드  -> (sysout1 종료 후 소멸)
+(7)main메소드  -> 참조변수 cs -> first 메서드  -> second 메서드  -> second메서드의 sysout2 
+(8)main메소드  -> 참조변수 cs -> first 메서드  -> second 메서드  -> (sysout2 종료 후 소멸)
+(9)main메소드  -> 참조변수 cs -> first 메서드  ->
+(10)main메소드 -> 참조변수 cs
+(11)main메소드
+(12)종료
+
+메서드가 종료해야 다음 메서드가 실행된다.
+void secondMethod(){
+	sysout1.println(~~~) -> sysout1이 실행 -> 종료 후 (5)->(6)
+	sysout2.println(~~~) -> sysout2가 실행 -> 종료 됨 (7)->(8)
+}
+
+메소드 내부의 참조변수나 매개변수등은 무조건 먼저 소멸하고 나서 메서드가 종료된다.
+
+
+//기본형 매개변수와 참조형 매개변수
+
+Call by Value <----> Call by Reference
+
+함수 호출 방법은 크게 두가지가 있다.
+Call by value(값에 의한 호출) ---> 값을 전달하면 복사가 이루어지는것이다.(서로 다른장소에 값이 보존이 된다)
+	Call by Value는 '값을 전달하는 방식'이며 다르게 말하면 '값만 전달하는 방식' 입니다!
+	만약 함수 A에서 B로 int 변수를 전달한다고 했을 때, 넘겨받은 B에서 어떤 행동을 하던지
+	변수에는 변함이 없습니다.
+	
+Call by reference(참조에 의한 호출)	---> 연결이 되있다고 보면된다. 복사가 아닌 
+	Call by Reference는 '주소를 전달하는 방식'입니다.
+
+Call by value(값에 의한 호출)
+장점 : 복사하여 처리하기 때문에 안전하다. 원래의 값이 보존이 된다.
+단점 : 복사를 하기 때문에 메모리가 사용량이 늘어난다.
+
+Call by reference(참조(주소)에 의한 호출)
+장점 : 복사하지 않고 직접 참조를 하기에 빠르다.
+단점 : 직접 참조를 하기에 원래 값이 영향을 받는다.(리스크)
+
+메모리공간의 힙 + 인스턴스 메소드 이동 정리 [1]~[16번]까지 정리됨
+
+ex)0000XF (주소값이 참조변수에 들어옴)  --> 이 주소를 따라서 인스턴스로 도달해서 .(변수명,메소드,~~)를 이용해서 인스턴스의 값에 접근을 한다.
+
+public class CallByExamTest {
+
+	public static void main(String[] args){
+		Exam3 exam3 = new Exam3();	// [1번]메모리의 heap 에 int n = 0, m = 0, add method를 가진 인스턴스가 생성됨 rmflrh [2번]exam3 변수에는 그 주소가 저장이된다 (0000XF~)
+		
+		int result = 0;		// [3번]result변수를 선언 그안에 0이 들어간다.(초기화)
+		
+		exam3.n = 10;		// [4번]exam3(0000XF 주소를 따라서 인스턴스로 이동 ->) .n(인스턴스의 변수 n) = 10; (즉 heap공간 n에 10이 들어옴)
+		exam3.m = 20;		// [5번]exam3(0000XF 주소를 따라서 인스턴스로 이동 ->) .m(인스턴스의 변수 m) = 20; (즉 heap공간 m에 20이 들어옴)
+		
+		result = exam3.add(exam3); // [6번]exam3 ---> 0000XF 주소를 따라 인스턴스로 이동 ---> .add 인스턴스이 add메소드로 이동 ---> 인수로 exam3를 입력
+									  [14번] result = 32로 담긴다
+		
+		System.out.println(result);	  [15번] result 32가 출력된다
+		System.out.println("exam3.n= " + exam3.n + "/ exam3.m= " + exam3.m);
+									  [16번] exam3(0000XF 주소를 따라서 인스턴스로 이동) .n (11) + exam3(0000XF 주소를 따라서 인스턴스로 이동) . m 21 출력 종료
+	}
+	
+	public class Exam3 {
+		int n = 0;
+		int m = 0;
+		
+		int add(Exam3 data){ [7번] --> data변수에 exam3의 값인 주소 0000XF가 들어옴
+			int result;	-->  [8번] 지역변수 result를 선언 (지역변수는 0으로 초기화안됨 주의)
+			
+			data.m++;  --> [9번]data ---> 0000XF를 따라 인스턴스로 이동  ---> .m (20) --> ++ = 21 인스턴스의 m변수에 21
+			data.n++;  --> [10번]data ---> 0000XF를 따라 인스턴스로 이동  ---> .n (10) --> ++ = 11 인스턴스의 n변수에 11
+			
+			result = data.m + data.n; --> [11번]0000XF를 따라 인스턴스로 이동 .m (21)
+										  [12번] 0000XF를 따라 인스턴스로 이동 .n(11) = 32가 지역변수 result에 담김
+			
+			return result;	[13번] --> return 되면서 메소드 종료되고 result가
+		}
+		
+heap공간에 생성된 클래스 Exam3 인스턴스의 예시
+	n = 0
+	m = 0
+   add()		
+
+(local variable)
+지역변수는 스스로 초기화 되지 않는다.
+그러므로 지역변수는 반드시 초기화를 해야 한다
+int result; --> 공간은 생기지만 초기화는 되지 않음
+초기화를 하지 않은경우 그 상태를 출력하거나 연산하려고 할시 에러가 발생함(지역변수에 초기값이 들어가지 않았다)
+
+지역변수 int n
+초기값 없음
+
+new해서 만들어진 객체(인스턴스)는 초기값이 들어간다
+묵시적으로 기본값(디폴트값)이 들어간다.
+고로 인스턴스 변수의 경우 선언만 하고 바로 사용해도 초기값이 디폴트값(기본값)이 들어가있다.
+
+인스턴스변수 int n
+초기값 0 있음

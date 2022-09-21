@@ -1,0 +1,43 @@
+반복문을 선택해서 사용하는 경우
+
+for문
+내가 전체 적인 범위를 안다
+어려울 땐 무조건 for문
+
+while문
+전체 적인 범위를 잘 모른다
+쉬워도 잘 안씀
+사용할 때는 거의 무한루프가 필요할 때 사용한다
+조건에 따라서
+break 로 반복문을 종료시켜줘야 한다
+
+do-while문
+while하고 비슷하다.
+실험, 시뮬레이터, 테스트등에 사용한다
+
+이클립스 : ctrl + alt + 화살표 아래 or 위 : 라인 복제
+
+//		배열(Array)
+//		
+//		배열 이란?
+//		배열은 같은 타입의 여러 변수를 하나의 묶음으로 다루는 것		
+//		
+//	    배열의 선언문		
+//		타입[] 변수명 = new 타입[크기];
+//		인트형 배열 numArr = new 인트형배열5
+		int[] numArr = new int[5];
+		
+배열은 for문을 통해 출력을 하는게 일반적이다. 
+조건문은 보통 배열의길이(Arr.length)를 조건 i < nameArr.length; 으로 건다.		
+		
+for (int i = 0; i < nameArr.length; i++) {
+	System.out.println(nameArr2[i]);
+}		
+
+배열의 선언문(방식 여러가지)	
+타입[] 변수명 = new 타입[크기];
+
+전체프로젝트파일을 검색해서 해당 텍스트 포함된걸 검색가능하다.
+ctrl+h -> customize -> file Search -> (containing text 에 검색 (너무 상세히는 말고) : math.ran )
+
+이클립스 : link with data 체크(내가 작업중인 프로젝트 파일(목록)을 확인가능)

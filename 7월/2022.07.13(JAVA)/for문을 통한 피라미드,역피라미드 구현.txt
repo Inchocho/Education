@@ -1,0 +1,171 @@
+------------------------------------------------------------------------
+for문 해석해보기
+
+		System.out.println("========삼각형==========");
+
+		for (int i=0; i<5; i++) {
+		    for (int j=1; j<5-i; j++) {
+		    	System.out.print(" ");
+		    }
+		    for (int j=0; j<i*2+1; j++) {
+		    	System.out.print("*");
+		    }
+		    System.out.println();
+		}
+		
+		먼저 for문(int i = 0 이 들어와서 실행됨 i인상태)
+			for문내 문장인 for(int j=1; j<5-0; j++) 실행됨
+			(int j=1; j<4; j++)만족 j=1,2,3,4 까지
+				System.out.print(" ") j = 1,2,3,4까지 즉 [    ] (공백4칸) 
+					그리고 j=5에서 조건 j < 5 false
+						일떄 다시 for문 (int j=0; j<i*2+1; j++)를 해서 
+							j=0; j<0*2+1; j++ 즉 j=0; j<1; j++ 가 true이므로 조건에 따른
+								System.out.print("*"); 별을 찍음 j=0 
+									j =1 j<1 false 
+										이제 줄바꿈 System.out.println(); 이 들어감 --> 즉 [    ★]이 첫번째줄에 들어가고 줄바꿈
+			이제 i=1로 다시 위 로직이 실행됨
+			(int j=1; j<4; j++)만족 j=1,2,3 까지 [   ] (공백3칸)
+				그리고 j=4에서 조건 j < 4 false
+					일떄 다시 for문 (int j=0; j<i*2+1; j++)를 해서 
+						j=0; j<1*2+1; j++ 즉 j=0; j<3; j++ 가 true이므로 조건에 따른
+							System.out.print("*"); 별을 찍음 j=0,1,2 총 별3개 ★★★
+								j =3 j<3 false 
+									이제 줄바꿈 System.out.println(); 이 들어감 --> 즉 [   ★★★]이 첫번째줄에 들어가고 줄바꿈
+									
+			이제 i=2로 다시 위 로직이 실행됨
+			(int j=1; j<3; j++)만족 j=1,2 까지 [  ] (공백2칸)
+				그리고 j=3에서 조건 j < 3 false
+					일떄 다시 for문 (int j=0; j<i*2+1; j++)를 해서 
+						j=0; j<2*2+1; j++ 즉 j=0; j<5; j++ 가 true이므로 조건에 따른
+							System.out.print("*"); 별을 찍음 j=0,1,2,3,4 총 별5개 ★★★★★
+								j =5 j<5 false 
+									이제 줄바꿈 System.out.println(); 이 들어감 --> 즉 [  ★★★★★]이 첫번째줄에 들어가고 줄바꿈									
+					
+		
+		System.out.println("========역삼각형==========");
+		
+		for (int i=5; i>0; i--) {
+		    for (int j=5-i; j>0; j--) {
+		    	System.out.print(" ");
+		    }
+		    for (int j=i*2-1; j>0; j--) {
+		    	System.out.print("*");
+		    }
+		    System.out.println();
+		}
+		
+		먼저 for문 (int i=5; i>0; i--) --> 5>0; 조건을 성립하므로 수행 
+			i=5일때
+				for (int j=5-i; j>0; j--) --> int j = 5-5; 0>0; j--  5>0; 조건 false				
+					j = 0, j>0; false 불성립하므로 밑으로
+						for (int j=i*2-1; j>0; j--)를 실행 -> int j= 5*2-1 = 9; 9>0 조건 성립 수행
+							System.out.print("*"); 별을 찍음 -> 9,8,7,6,...1 총 9개 별이 찍힘 *********
+								j = 0 0>0 false 불성립하므로 밑에 문장 실행됨
+									System.out.println(); 줄바꿈 처리
+									
+			i=4일때
+				for (int j=5-i; j>0; j--) --> int j = 5-4; 1>0; j--  1>0; 조건 true
+					System.out.print(" "); j = 1; [ ](공백1칸)
+						j = 0, j>0; false 불성립하므로 밑으로
+							for (int j=i*2-1; j>0; j--)를 실행 -> int j= 4*2-1 = 7; 7>0 조건 성립 수행
+								System.out.print("*"); 별을 찍음 -> 7,6,...1 총 7개 별이 찍힘 *********
+									j = 0 0>0 false 불성립하므로 밑에 문장 실행됨
+										System.out.println(); 줄바꿈 처리	
+
+			i=3일때
+				for (int j=5-i; j>0; j--) --> int j = 5-3; 2>0; j--  2>0; 조건 true
+					System.out.print(" "); j = 1,2; [ ](공백2칸)
+						j = 0, j>0; false 불성립하므로 밑으로
+							for (int j=i*2-1; j>0; j--)를 실행 -> int j= 3*2-1 = 5; 5>0 조건 성립 수행
+								System.out.print("*"); 별을 찍음 -> 5,4,...1 총 5개 별이 찍힘 *********
+									j = 0 0>0 false 불성립하므로 밑에 문장 실행됨
+										System.out.println(); 줄바꿈 처리											
+		
+		System.out.println("========피라미드형==========");
+		
+		//상단-중간
+		for (int i=0; i<5; i++) {
+		    for (int j=1; j<5-i; j++) {
+		        System.out.print("#");
+		    }
+		    for (int j=0; j<i*2+1; j++) {
+		        System.out.print("*");
+		    }
+		    for (int j=1; j<5-i; j++) {	//" "즉 공백이 아니라 다른문자를 넣을경우 추가로 해서 반대쪽도 빈칸처리를 하기위해 for문 추가함
+		        System.out.print("#");
+		    }			
+		    System.out.println();
+		}
+				
+		//하단(상단 뒤집기)
+		for (int i=5-1; i>0; i--) {
+		    for (int j=5-i; j>0; j--) {
+		        System.out.print("#");
+		    }
+		    for (int j=i*2-1; j>0; j--) {
+		        System.out.print("*");
+		    }
+		    for (int j=5-i; j>0; j--) {
+		        System.out.print("#");
+		    }			
+		    System.out.println();
+		}		
+		
+========================================================================================
+		정방향 삼각형
+		for (int i = 0; i < 5; i++) {
+			for (int j = 1; j < 5 - i; j++) {
+				System.out.print("☆");
+			}
+			for (int j = 0; j < i * 2 + 1; j++) {
+				System.out.print("★");
+			}
+			for (int j = 1; j < 5 - i; j++) {
+				System.out.print("☆");
+			}
+			System.out.println();
+		}		
+		
+		역방향 삼각형
+		for (int i=5; i>0; i--) {
+		    for (int j=5-i; j>0; j--) {
+		    	System.out.print("☆");
+		    }
+		    for (int j=i*2-1; j>0; j--) {
+		    	System.out.print("★");
+		    }
+		    for (int j=5-i; j>0; j--) {
+		    	System.out.print("☆");
+		    }		    
+		    System.out.println();
+		}			
+
+=============================================내가만들어보려고 하는 세모(피라미드) 시도중===============
+//세모출력연습
+		int i = 0;
+		int j = 0;
+		int k = 0;
+
+		for (i = 1; i <= 9; i++) {
+			for (j = 1; j <= 9 - i; j++) {
+				System.out.print("□");
+			}
+			System.out.print("■");
+			for (k = 1; k <= 9 - j; k++) {
+				System.out.print("□");
+				
+				System.out.print("■");
+			}			
+			System.out.println();
+		}
+		
+for(int i=0;i<4;i++){
+	for(int j=0;j<3-i;j++){
+		System.out.print(" "); 
+	}
+	for(int j=0;j<2*i+1;j++){
+		System.out.print("*"); 
+	}
+	System.out.println("");
+} 		
+

@@ -1,0 +1,16 @@
+명령 프롬포트 : window + R
+자바: jdk 환경변수(JAVA_HOME 변수추가 -> path에  %JAVA_HOME%\bin 경로 추가 
+파일질라 호스트: 118.128.215.215
+과제: 집에 프로그램 환경 구축(JAVA 설치, Eclipse~) -> 파일질라 서버에 올림 사진 찍어서 다음주 월요일까지~
+과제서식 : 자기이름_셋팅완료(조현석_셋팅완료)
+
+FTP 주소
+118.128.215.215
+
+이클립스 경로
+C:\workspace
+
+자바 설치 (ver8)
+https://www.oracle.com/java/technologies/downloads/#java8-windows   64bit
+이클립스 설치 (zip파일) (2021-12월 버전)
+https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2021-12/R/eclipse-jee-2021-12-R-win32-x86_64.zip
