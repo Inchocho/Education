@@ -1,0 +1,12 @@
+
+[Eclipse] java.lang.NoClassDefFoundError 해결 
+이클립스 코드작성시 에러가 아니라 
+.java파일이 .class로 컴파일될때 에러가 발생한것
+
+org.eclipse.wst.server.core 파일 안의 내용물 전체삭제 후 이클립스 재실행하면
+컴파일이 정상적으로 완료된다. (자바파일이 다시 컴파일됨)
+
+* 폴더 경로 : 
+...\프로젝트명\.metadata\.plugins\org.eclipse.wst.server.core
+
+C:\workspaceFront\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\web04_166\WEB-INF\classes\spms\servlets

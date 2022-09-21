@@ -1,0 +1,73 @@
+데이터 보관소 
+
+서블릿들이 서로 데이터를 공유하는 방법을 알아야 한다
+
+4가지 객체 보관소 특징
+
+1 - ServletContext 보관소
+웹 어플리케이션이 시작될 때 생성되어 웹 어플리케이션이 종료될 때 까지 유지된다 
+이 보관소에 데이터를 보관하면 웹 어플리케이션이 실행되는 동안에는 모든
+서블릿이 사용가능하다
+jsp -> application 
+
+##
+	ServletContext sc = this.getServletContext();
+	conn = (Connection) sc.getAttribute("conn"); -> DB객체를 가져와서씀
+##
+
+2 - HttpSession 보관소
+클라이언트 최초 요청 시 생성되어 브라우저를 닫을 때 까지 유지된다 
+보통 로그인할 때 이 보관소를 초기화하고, 로그아웃하면 이 보관소에
+저장된 값들을 비운다
+서블릿이나 jsp 페이지에 상관없이 로그아웃 하기 전까지 계속 값을 유지 할 수 있다
+(인터넷 한번 로그인하면 껐다켜도 계속 로그인되있는게 이놈때문임)
+앞으로 로그인정보는 계속 가져갈거니까 HttpSession을 이용할거다
+
+session이란? 서버가 해당 서버(웹)로 접근(request)한 클라이언트(사용자)를 식별하는 방법
+	세션(session)이란 웹 사이트의 여러 페이지에 걸쳐 사용되는 사용자 정보를 저장하는 방법을 의미합니다.
+	사용자가 브라우저를 닫아 서버와의 연결을 끝내는 시점까지를 세션이라고 합니다.
+	
+##
+	if (rs.next()) {
+		email = rs.getString("email");
+		name = rs.getString("mname");
+
+		MemberDto memberDto = new MemberDto();
+
+		memberDto.setEmail(email);
+		memberDto.setName(name);
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("memberDto", memberDto);
+
+		resp.sendRedirect("../member/list");
+	}
+	memberDto에 입력된 정보를 담아서 세션에 담은채로 list로 이동한다
+	(즉 한번 등록한 email과 name값은 이제 페이지를 이동해도 로그아웃 전까지 값이 유지된다)
+##	
+
+jsp -> session 
+
+3 - ServletRequest 보관소
+클라이언트의 요청이 들어올 때 생성되어, 클라이언트에게 응답할 때 까지 유지된다 (매 요청시마다 생성된다)
+이 보관소는 포워딩이나 인클루딩을 하는 서블릿들 사이에서 값을 공유한다 
+(HttpServletRequest req,  HttpServletResponse resp) 얘네임
+
+##
+RequestDispatcher rd = 
+	request.getRequestDispatcher("/Test8.jsp (응답할 URL 주소값)";
+	
+	rd.inclue(request,response) or rd.foward(request,response);
+##	
+	
+
+jsp -> request 
+
+4 -> JspContext 보관소
+나 자신이다 (this -> 자기자신 사용하고 이동하면 소멸됨)
+
+jsp -> pageContext 
+
+보관소 사용방법(전부 동일)
+보관소 객체.setAttribute(키, 밸류); : 값 저장 
+보관소 객체.getAttribute(키); : 값 호출

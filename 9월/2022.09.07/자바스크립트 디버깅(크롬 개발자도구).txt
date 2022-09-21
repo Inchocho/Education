@@ -1,0 +1,30 @@
+디버깅(크롬 개발자도구를 통해서 작업)
+실행 -> F12(개발자도구) -> source로 이동
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		
+		<style type="text/css">
+		
+		</style>
+		
+		<script type="text/javascript">
+
+			debugger;			
+			for (var i = 0; i < 10; i++) {
+					document.write(i);		
+			}
+			
+		</script>
+		
+	</head>
+	
+	<body>
+	
+	</body>
+</html>
+
+해당 폴더를 실행하고 F12(개발자도구) -> source -> F5를 누르면 디버깅모드에 진입한다

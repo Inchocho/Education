@@ -1,0 +1,47 @@
+프로퍼티		textContent		innerText		innerHTML
+값			raw text		rendered text	HTML parsed text
+성능			좋음				보통				나쁨
+보안	-			-					-			-	취약
+
+innerHTML, innerText, textContent는 노드의 특정 값을 읽어오고 설정할 수 있다는 점이 공통됨
+
+innerHTML 프로퍼티의 값은 text/html으로 파싱한 결과
+
+가급적으로 
+###textContent###를 사용하자
+가급적 textContent를 사용하는 것이 좋습니다. 
+textContent는 'Node'의 속성으로, 사용자에게 보여지는 text값만 읽어오는 innetText와는 달리 
+<script>나 <style> 태그에 상관없이 해당 노드가 가지고 있는 텍스트 값을 모두 읽어온다.
+성능과 보안에 강점이 있고, 결과적으로 해당 노드의 raw text를 얻게 됨으로써 이후 의도한 대로 가공할 수 있기 때문입니다.
+textContent는 노드와 그 자손의 텍스트 콘텐츠를 표시합니다.
+
+사용법 : element.textContent = '내용'
+
+###innerText###
+특정 노드에 렌더링 된(화면에 보이는 그대로의) 텍스트를 읽어올 때 유용합니다.
+하지만 내부에 특별히 스타일 적용이 없는 문자열을 할당할 때는 성능상 적합하지 않습니다. 
+단, IE(IE8 이하) 환경을 중점으로 고려한 프로젝트라면 textContent 대신 사용하도록 합니다.
+text만을 가져오기 때문에 html tag등을 가져올 수 없다
+
+innerText는 해당 요소와 그 자손의 텍스트가 렌더링 된 결과를 나타낸다.
+결과물을 보면 줄 바꿈이 반영되고 display: none으로 설정된 숨겨진 글이 보이지 않습니다.
+이처럼 사용자에게 보여질 모습과 가장 근사한 결과를 나타냅니다.
+
+사용법 : innerText.textContent = '내용'
+innerText는 불필요한 공백을 제거하고 텍스트로 반환
+
+###innerHTML###
+HTML Parsing이 필요한 문자열에만 사용하도록 합니다. 그게 아니라면, 
+성능상 좋지 않고 XSS 공격에도 취약하므로 innerHTML은 사용하지 않는 것이 좋습니다.
+
+innerHTML는 해당 노드 안에 있는 모든 HTML 마크업을 문자열로 반환하거나 직접 변경합니다.
+innerHTML을 사용하면 HTML 마크업으로 간단하게 DOM 조작이 가능합니다.
+innerHTML는 기존의 모든 자식 노드를 제거하고 HTML 마크업을 할당하는 방식을 가졌습니다.
+이러한 방식은 성능에 좋지 않으며 요소가 삽입될 위치를 지정할 수 없는 단점도 있습니다.
+
+사용법 : innerHTML.textContent = '내용'
+
+innerHTML과 innerText과 textContent 차이는
+innerHTML은 요소 내에 있는 HTML과 XML 모두를 의미하고, 							-- 보안취약 위험함 쓰지마
+innerText는 요소 내에서 사용자에게 보여지는 text를 의미하고,						-- 애매함 그냥 textContent써
+textContent는 script나 style 태그와 상관없이 해당 노드가 가지고 있는 text를 의미한다. -- textContent쓰자

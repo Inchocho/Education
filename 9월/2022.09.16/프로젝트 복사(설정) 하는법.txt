@@ -1,0 +1,12 @@
+프로젝트 복사 붙여넣기
+
+실행안됨(톰캣서버가 중복으로 잡힘)
+
+Navigator모드로 가서 프로젝트 선택
+settings에서
+org.eclipse.wst.common.component에서
+deploy-name과
+context-root의 value
+java-output-path의 value를 새로만든 이름으로 변경(기존과 중복되있음)
+
+현업에서는 이거 하면 큰일난다 하지마라(연습용으로 여기서만해)

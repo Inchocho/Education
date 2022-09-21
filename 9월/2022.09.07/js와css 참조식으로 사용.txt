@@ -1,0 +1,41 @@
+script는
+js폴더에 js파일을 만들어서 따로 관리
+
+#주의: 코드작성이 완료 된 후 디버깅까지 마친 후 
+#스크립트(js)와 스타일시트(css)를 분리한다#
+완벽하게 작동하는걸 확인 후 분리한다
+
+즉 기존작업처럼 style, script태그에 작성하는게 먼저다
+
+외부참조형 스크립트
+<script type="text/javascript" src="./js/index.js">
+</script>
+
+외부참조형 스타일시트
+css폴더에 css파일을 만들어서 따로 관리한다
+<link rel="stylesheet" type="text/css" href="./css/index.css">
+스타일시트의 경우 아예 <style>태그를 없애고 위처럼 사용하게된다
+
+css파일 예제 : index.css(FrontDanProject)
+@charset "UTF-8";
+
+#studentTableContainer {
+	border: 1px solid black;
+	width: 400px;
+	height: 300px;
+}
+
+table, tr, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+js파일 예제 : index.js(FrontDanProject)
+window.onload = function(){
+	var submitBtnObj =	document.getElementById('submitBtn');
+	
+	submitBtnObj.addEventListener('click',function(e){
+		alert('페이지가 넘어가요~');
+		location.href = './newPage.jsp';
+	});
+}

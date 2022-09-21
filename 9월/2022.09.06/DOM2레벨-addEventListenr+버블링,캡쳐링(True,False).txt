@@ -1,0 +1,134 @@
+9월 6일
+addEventListener (2레벨)
+###
+참고로 addEventListener는 다이나믹한 구조를 만들때 사용한다
+기본적으로는 태그에 onclick을 적용해서 작성하는걸 베이스로 잡고 (빠르고 관리가 쉬움)
+
+<div id='~~' onclick ='~~()Fnc'> 이게 기본
+###
+추가로 이벤트를 다이나믹하게 사용할때
+element.addEventListener를 적용한다
+
+~~~
+aaaObj.addEventListener('click',함수명);
+
+<div id='aaa'>
+
+표준 이벤트 등록방식(level 2 : 이벤트 대상.addEventListener)
+이벤트 대상.addEventListener('이벤트명', 함수명, false);
+이벤트명은 onclick 요런게 아님 이건 리스너명임 click이 이벤트임 
+
+예제
+	<script type="text/javascript">
+		//	가공되지 않은값은 변수로 만들면 낭비임
+		//	ex)var fromInputObjValue = fromInputObj.value
+		//	이경우 그냥 fromInputObj.value 이거를 쓰자
+		
+		function copyInputValueFnc(){
+			var fromInputObj = document.getElementById('fromInput');
+			
+			var showValObj = document.getElementById('showVal');
+			showValObj.value = fromInputObj.value;
+		}
+		
+		window.onload = function () {
+			var btn1Obj = document.getElementById('btn1');
+			btn1Obj.addEventListener('click', copyInputValueFnc);
+		}
+	</script>
+	
+함수를 만들고
+해당 함수를 이벤트발생시 호출하는식으로 만들어주면 된다	
+
+이벤트 대상.addEventListener('이벤트명', 함수명, false);
+세번쨰 인자값의 기본 값은 브라우저 크롬에서는 false , 일반 웹 페이지에서는 true 입니다
+세번째 인자값의 의미 (1:이벤트명, 2:함수명, 3:false <<< 이녀석) 
+이벤트 태그가 위, 아래로 나열될 때
+해당 이벤트를 끝내고 다음 이벤트로 넘기는 역할을 한다
+인자값 false가 포함되면 해당 이벤트가 발생한 위치에서 멈추고
+아래로 진행되는데 이를 'bubbleUp(버블업)' 방식이라고 부른다.
+
+이벤트 버블링('이벤트명', 함수명, false), 이벤트 캡처('이벤트명', 함수명, true)
+이벤트 버블링 : 하위요소에서 상위요소로 올라가면서 이벤트를 전파
+이벤트 캡처  : 최상위요소에서 하위요소로 내려가면서 이벤트를 전파
+
+예제: 세 개의 div 태그에 모두 클릭 이벤트를 등록하고 클릭 했을 때 logEvent 함수를 실행시키는 코드
+
+이벤트 버블링 예제(하위요소에서 상위요소로 전파) : addEventListener(이벤트명,함수명,false) 
+맨마지막 div를 클릭했을때 이벤트
+<body>
+	<div class="one">
+		<div class="two">
+			<div class="three">
+			</div>
+		</div>
+	</div>
+</body>
+
+var divs = document.querySelectorAll('div');
+divs.forEach(function(div) {
+	div.addEventListener('click', logEvent);
+});
+
+function logEvent(event) {
+	console.log(event.currentTarget.className);
+}
+
+출력결과
+three
+two
+one
+##############
+이벤트 캡쳐 예제(상위요소에서 하위요소로 전파) : addEventListener(이벤트명,함수명,true) API에서 옵션 객체에 capture:true
+맨마지막 div를 클릭했을때 이벤트
+<body>
+	<div class="one">
+		<div class="two">
+			<div class="three">
+			</div>
+		</div>
+	</div>
+</body>
+
+var divs = document.querySelectorAll('div');
+divs.forEach(function(div) {
+	div.addEventListener('click', logEvent, {
+		capture: true // default 값은 false입니다.
+	});
+});
+
+function logEvent(event) {
+	console.log(event.currentTarget.className);
+}
+
+
+출력결과
+one
+two
+three
+##############
+
+캡쳐값이 true면 상위요소로 전파(?)해서 이벤트가 발생 
+
+즉 div1(true)
+	->div2(false)
+		->div3(true)
+			->div4(false)
+				->div5(true)
+
+여기서 3을 클릭할경우
+div1->div3->div2 순서로 출력
+여기서 2를 클릭할경우
+div1->div2
+여기서 1을 클릭할경우
+div1
+
+무조건 최상위부터 돈다고 생각하면 된다
+div1~div5 (TFTFT)라고 생각하면
+div5를 클릭시 div1T -> div3T -> div5T 그이후 div4F -> div2F 로 실행된다
+
+무조건 최상위부터 실행되고 (div1부터) True를 먼저 순회하고 
+그다음 마지막 F부터 위로 즉 div1(T) -> div3(T) -> div5(t) -> div4(F) -> div2(F) 순서로 실행된다
+
+부모부터 자식으로 이벤트가 전파되는 것을 캡쳐링(capturing) (True)
+자식부터 부모로 이벤트가 전파되는 것을 버블링(bubbling) (False)

@@ -1,0 +1,67 @@
+JSP(Java Server Page)
+
+서블릿화 시켜서 자바의 언어들을 HTML로 쓸 수 있게 변환,구성해준다
+
+이를 통해 서블릿화 된 HTML 파일을 전달해서 응답한다
+
+##########################################
+이제 자바영역이기 때문에 컴파일러 영역이다 
+즉 자바스크립트 인터프리터와 달리 문법 엄격함 틀리면 실행안됨
+그러니까 이제 다시 완벽하게 작성해라~
+무조건 작업하기 전에 서버를 내리고 추가하고 서버를 실행하자
+컴파일러는 엄격하다
+###########################################
+
+앞으로 web.xml을 최우선으로 확인하게 된다
+https://gmlwjd9405.github.io/2018/10/29/web-application-structure.html 참조
+
+####WebContent(webapp)/WEB-INF/web.xml###
+웹 어플리케이션 배치(batch) 설명서(Deployment Descriptor) 파일이다
+DD파일이라고 부른다. 서블릿이나 필터, 매개변수, 기본 웹 페이지등
+웹 어플리케이션 컴포넌트들의 배치 정보를 이 파일에 작성한다
+서블릿 컨테이너는 클라이언트의 요청을 처리할 때 이 파일의 정보를 참고하여
+서블릿 클래스를 찾거나 필터를 실행하는 등의 작업을 수행한다
+####
+
+web03_111 프로젝트
+web.xml 참조
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+	 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>web03_111</display-name>	--> 프로젝트명과 반드시 동일해야함
+  <welcome-file-list>		--> 첫번째 페이지(대문)로 띄워주는 파일들임(패키지 시점에서 run할시 밑에 이름으로 된 파일은 열린다)
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>		<-- index.jsp가 기본페이지로 쓰인다
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  welcome-file-list에 여러개를 명시한 경우 순서대로 
+  사용자가 서버의 루트경로로 접근시에 먼저 첫번째 <welcome-file>을 읽고 해당파일이 있다면 
+  해당페이지로 이동하며 없을 경우 그 다음 순서의 <welecome-file>을 확인하여 사용자에게 전달합니다.
+  
+  절대적으로 생성순서는 클래스우선 생성한다
+  클래스생성(완벽) -> 서블릿생성(web.xml에 작성) 
+  
+  <servlet>
+  	<servlet-name>HelloWorld</servlet-name>						<servlet-name>HelloWorld -> 변수명(아래 클래스를 HelloWorld로 사용가능	
+  	<servlet-class>stu.edu.servlet.HelloWorld</servlet-class>	<servlet-class>여기에 패키지 풀네임 작성반드시 필요(클래스명만 띡 적으면 안됨)
+  	<init-param>
+  		<param-name>email</param-name>
+  		<param-value>test@stu.com</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>HelloWorld</servlet-name>
+  	<url-pattern>/HelloWorld</url-pattern>	---> 식별자가 변수명 HelloWorld가 되는것이다
+  </servlet-mapping>
+  
+</web-app>
+
+https://velog.io/@7lo9ve3/%E3%85%87
+서블릿 생명주기(실행순서 참고)

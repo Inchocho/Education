@@ -1,0 +1,125 @@
+자바스크립트 이벤트 정리
+
+##이벤트란?##
+
+- 특정 대상에 가하는 어떠한 행동 이라고 할수 있습니다.
+  또한 행동의 주체는 누구든 상관이 없습니다. 사람이 할 수도 있고 프로그램이 할 수도 있습니다.
+
+##Event handler 이벤트 핸들러란?##
+
+- Event(특정 대상에 가하는 어떠한 행동)에 대한 다음 처리과정을 Event handler라고합니다.
+예를 들면, "버튼을 눌렀다"라는 Event가 발생하면, "이름을 알아내서 환영 메시지를 뛰운다"
+여기서 "이름을 알아내서 환영 메시지를 뛰운다"라는 일련의 다음 과정을 정의해 놓은게 
+Event handler 입니다
+
+- Ex) 항아리를 깬다. 깰때는 망치로 깬다. 라고 할 때
+	  - 항아리                : 대상(객체)
+	  - 깬다                 : Event
+	  - 망치로 항아리를 깬다 		: Event Hadler
+	  
+##Event Listner 이벤트 리스너란?##
+
+이벤트 : click
+이벤트 리스너(event listener) : onClick
+지정된 타입의 이벤트가 발생하면, 이벤트 리스너가 듣고 있다가 이벤트 핸들러를 실행시킨다.	  
+	  
+##이벤트 모델##
+
+(1) 인라인 Event 모델 
+- HTML의 태그의 Event Property와 Event handler를 연결하는 방식입니다. 
+- 단점 : 코드가 매우 지저분해 지며, 유지 보수가 힘듭니다.
+  
+동작 방식
+
+- HTML의 button tag에서 onclick Event Property에 Event Handler를 연결 하겠습니다.
+- 아래 코드에서 onClick이란 Event Property가 Event이고, 할당된 코드가 Event Handler 입니다.
+
+<button onclick="var msg='hellow'; alert(msg);">
+	onClick Event button
+</button>
+
+#############
+
+(2) 기본 Event 모델
+- 자바스크립트에서 문서 객체의 Event Property을 사용하여 Event와 Event handler를 연결하는 방식입니다
+- 단점 : 한개의 Event 핸들러 밖에 처리를 하지 못 합니다.	  
+
+ 동작 방식
+
+- 자바스크립트에서 문서 객체의 Event Property을 사용하여 Event와 Event handler를 연결하는 방식입니다.
+- 아래 코드에서는 button 객체를 얻어 객체의 onclick Event Property에, Event Handler를 연결한 것입니다. 
+
+<script>
+window.onload = function() {
+	var button_obj = document.getElementById('buttion1');
+
+	button_obj.onclick = function () {
+		var msg = "hellow 기본 이벤트 모델";
+		alert(msg);
+	};
+};
+</script>	  
+
+<button id='buttion1'>
+	onClick Event button , 기본 이벤트 모델
+</button>
+
+#############
+(3) 표준 Event 모델
+- 웹 표준을 만드는 단체인 W3C에서 공식적으로 지정한 DOM Level 2 이벤트 모델 입니다.
+- 정점 : 여러개의 Event 핸들러 처리 가능
+- addEventListener은 이벤트를 등록하는 가장 권장되는 방식이다. 이 방식을 이용하면 여러개의 이벤트 핸들러를 등록할 수 있다.
+
+동작 방식
+
+- 자바스크립트에서 문서 객체의 addEventListener 메소드을 사용하여 Event와 Event handler를 연결하는 방식입니다.
+
+사용 방법
+
+A. 이벤트 추가
+
+- 객체.addEventListener('이벤트 이름', Event handler, useCapture)
+- userCapture는 사용하지 않을 경우 기본 값이 false 입니다. 
+
+B. 이벤트 제거 
+
+- 객체.removeEventListener('이벤트 이름', Event handler)
+
+기본적으로 Event와 Event handler를 연결 하기 위해서 window.onload의 
+Event Handler 안에서 코드를 작성해야 합니다. 그래야 페이지가 로드될 때 Event와 Event handler가 연결됩니다.
+
+<script>
+	   window.onload = function() {
+		var button_obj = document.getElementById('buttion2');
+		var event_hadller =  function(){
+			var msg = "hellow 표준 이벤트 모델";
+			alert(msg);
+		}
+		// click 이벤트추가 
+
+		button_obj.addEventListener('click', event_hadller);
+		// click 이벤트 삭제
+		// button_obj.removeEventListener('click', event_hadller);
+	};
+</script>
+<button id='buttion2'>
+		onClick Event button , 표준 이벤트 모델
+</button>
+
+#############
+
+
+###############
+querySelector
+**querySelector()**는 특정 name,id,class를 제한하지 않고 css선택자를 사용하여 요소를 찾습니다.
+같은 id 또는 class 일 경우 ##스크립트의 최상단 요소만 로직에 포함합니다##.
+#예제#
+querySelector(#id) => id 값 id를 가진 요소를 찾습니다.
+querySelector(.class) => class 값 class를 가진 요소를 찾습니다.
+
+querySelectorAll
+querySelector와 사용 방법은 동일하며 선택자를 선택하여 배열과 비슷한 객체인 nodeList를 반환합니다. 
+반환객체가 nodeList이기에 for문 또는 forEach문을 사용합니다.
+아래 코드와 같이 ","를 사용하면 여러 요소를 한번에 가져올 수 있습니다.
+#예제#
+querySelectorAll("#id,.class");

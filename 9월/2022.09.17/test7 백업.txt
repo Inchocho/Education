@@ -1,0 +1,52 @@
+package ezen.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(value="/ezen/test7")
+public class TestServlet7 extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String myAge = "";
+		
+		System.out.println(req.getParameter("myAge"));
+		
+		//파라미터 "myAge"의 값이 null이면 변수 myAge에 0을 넣어준다(Integer.parseInt형변환시 에러방지)
+		if(req.getParameter("myAge") == null) {
+			myAge = "0";
+		}else {
+			myAge = req.getParameter("myAge");
+		}
+		
+		//그 결과 null이라서 myAge변수에 0이 담김
+		System.out.println(myAge);
+		
+		//myAge 즉 0을 key값 myKey에 담음 (key: "myKey", value: myAge(0))
+		req.setAttribute("myKey", myAge);	
+		
+		//그결과 key값 "myKey"를 찍어보면 0이 나옴
+		System.out.println(req.getAttribute("myKey"));
+		
+		//응답 text/html 타입 + 인코딩 UTF-8
+		resp.setContentType("text/html");
+		resp.setCharacterEncoding("UTF-8");
+		
+		//RequestDispatcher를 통해 /Test7.jsp로 이동
+		RequestDispatcher dispatcher =
+				req.getRequestDispatcher("/Test7.jsp");
+		
+		//Dispatcher에는 req,와 resp를 포함함(값을 들고있음 즉 req.getAttribute("myKey")를 통해 0을 꺼냄
+		dispatcher.include(req, resp);
+	}
+}
+
+
+작동 1( but String타입임)

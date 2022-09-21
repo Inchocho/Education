@@ -1,0 +1,104 @@
+JSP 액션(Action) 태그
+
+jsp 페이지를 작성할 때 가능한 자바 코드의 삽입을 최소화 하기위해 (복잡성 낮추기)
+JSP 전용 태그를 사용한다
+기본으로 제공하는 태그들을 JSP Action(액션)이라고 한다
+
+jsp 액션 태그를 사용하면 자바로 직접 코딩하는 것보다 빠르고
+쉽게 원하는 기능을 작성 할 수 있다
+
+jsp:include			
+<jsp:include>
+정적(html) 또는 동적(서블릿,jsp) 자원을 인클루딩하는 자바 코드를 생성한다
+다른 페이지를 현재 페이지에 포함하고자 할 때 사용(외부페이지 내용을 포함하거나 모듈화)
+
+jsp:useBean
+<jsp:useBean>
+자바 빈즈 사용을 위한 객체 생성을 위해 사용
+자바 인스턴스를 준비한다
+자바 인스턴스를 자바 빈(Bean)이라고 부른다 (자바빈을 일종의 DTO클래스로 생각하면된다)
+
+DTO는 Data Transfer Object의 약자로 데이터를 운반하는 객체 (VO는 value object)
+(private멤버 (직접 접근을 막음), 디폴트생성자, 파라미터를 갖는 생성자, getter/setter메소드와 toString() - 객체전체출력을 위해)
+
+jsp:setProperty
+<jsp:setProperty>
+자바 빈즈 데이터를 입력하기 위해 사용
+
+jsp:getProperty
+<jsp:getProperty>
+자바 빈즈 데이터를 얻어내기 위해 사용
+
+jsp:forward
+<jsp:forward>
+현재 페이지에서 다른 페이지로 이동할 때 사용
+
+jsp:plugin
+<jsp:plugin>
+자바 컴포넌트를 삽입하는데 사용
+
+jsp:element
+<jsp:element>
+동적으로 XML 요소를 정의하는데 사용
+
+jsp:attribute
+<jsp:attribute>
+동적으로 XML 요소를 정의하는데 사용
+
+jsp:body
+<jsp:body>
+동적으로 XML 요소를 정의하는데 사용
+
+jsp:text
+<jsp:text>
+JSP 페이지와 문서의 템플릿 텍스트를 작성하는데 사용
+
+
+<jsp:useBean 
+	id="memberList"
+	scope="request"
+	class="java.util.ArrayList"
+	type="java.util.ArrayList<MemberDto>"
+/>
+
+
+<jsp:useBean> - id 속성
+객체의 이름을 설정한다. 이 이름은 3군데에서 사용된다.
+① 꺼낸 객체의 참조 변수 이름
+② getAttribute()로 값을 꺼낼때 사용하는 이름
+③ 객체를 생성할경우 보관소에 저장하는 key값의 이름
+ 
+<jsp:useBean> - scope 속성
+보관소를 지정한다. page(기본값), request, session, application 중 하나를 지정할 수 있다.
+
+page = JspContext(기본값)
+request = ServletRequest
+session = HttpSession
+application = ServletContext
+ 
+<jsp:useBean> - class 속성
+class 속성은 자바 객체를 생성할 때 사용할 클래스 이름을 지정한다.
+반드시 패키지 이름을 포함해야한다. (QName)
+new 연산자를 사용하므로 인터페이스는 올 수 없다.
+scope에서 지정한 보관소에서 객체를 찾지 못할 경우 class의 값을 사용해서 인스턴스를 생성한다.
+생성된 객체는 scope 보관소에 자동으로 저장된다.
+class 속성이 없으면 객체를 생성할 수 없다.
+
+<jsp:useBean> - type 속성
+type 속성에는 참조 변수를 선언할 때 사용할 타입(클래스, 인터페이스)을 지정한다.
+반드시 패키지 이름을 포함한 QName을 지정해야 한다.
+type 값을 지정하지 않으면 class 속성의 값을 사용한다.
+
+
+기존 JSP 코드
+<% 
+MemberDto memberDto = (MemberDto)session.getAttribute("memberDto"); 
+%>
+
+jsp:useBean을 이용한 코드
+<jsp:useBean 
+	id="memberDto"					memberDto
+	scope="session"			  		(MemberDto)session.getAttribute("memberDto"); 
+	class="spms.dto.MemberDto" 		클래스명(MemberDto 클래스)
+	type="spms.dto.MemberDto"		타입은 class와 동일 (+ 형변환 필요할경우 형변환)
+/>	

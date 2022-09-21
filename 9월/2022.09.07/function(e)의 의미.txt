@@ -1,0 +1,33 @@
+function(e)에 대하여
+#####################
+addEventListner('이벤트',함수(e));
+
+('click', function(e) {
+e.preventDefault();}
+에서 function(e)의 용도가 정확히 뭔가요?
+구글링해보면 'event 관련 object를 받는 argument다'라고 하는데
+그러니까 즉 사용자가 한 click이라는 event가 argument가 되고 e가 이를 받는 parameter인건가요?
+
+왜 쓰는걸까요?
+######################
+e특별한 의미가 없습니다. e매개 변수가 인 경우 함수 매개 변수 이름 으로 사용하는 것은 규칙 일뿐 입니다 event.
+function (e)  <<<<< (e) 는 event 관련 object를 받는 argument 이다.
+
+addEventListner 에서 function(e) 가 쓰여있는 위치에는 이벤트 핸들러가 주어져야 합니당.
+이벤트가 발생했을 때 실행되는 함수가 놓여져야 한다는 거죵.
+그래서 click 이벤트가 발생하면 function(e) {e.preventDefault();} 가 실행됩니다.
+그리고 이벤트가 발생하면 이벤트 객체가 생성이 되는데, 그 이벤트 객체가 e 라는 파라미터에 할당이 됩니당.
+그러므로 말씀하신 내용으로 이해하셔도 될거에용. 이 이벤트 객체가 필요한 이유는 발생한 이벤트에 관한 정보들이 담기기 때문에
+이 이벤트 객체를 이용하여 이벤트 객체의 여러 프로퍼티들을 활용할 수 있습니당.
+예를 들어 이벤트가 어떤 타입인지, 또 이벤트를 처리하는 요소(e.currentTarget)가 무엇인지 등등이요
+####################
+
++예시
+이건 addEventListner('이벤트',함수)에서 함수를 직접 입력한 케이스긴한데 그냥 여기다 적어봄
+
+window.onload = function(){
+	var aObj = document.getElementById('a');
+	aObj.addEventListner('click',function(e){
+		this.target.value = 'abcde';
+	});
+}

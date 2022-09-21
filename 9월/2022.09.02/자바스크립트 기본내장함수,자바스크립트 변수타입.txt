@@ -1,0 +1,28 @@
+input타입은
+무조건 문자열
+형변환을 해줘야 한다 !!!
+parseInt
+
+자바스크립트 기본함수(형변환)
+
+parseInt(숫자); -> 정수형으로 타입변환
+Number(숫자); -> 숫자형으로 타입변환
+isNaN(숫자); -> isNaN = is Not a Number - FALSE(숫자면 FALSE) // TRUE(숫자아니면 TRUE) 
+isNaN은 불린형이므로 명명규칙에따라 앞에 is가 붙음 
+
++++
+eval() is evil
+쓰지마
+
+자바스크립트 기본내장함수
+eval() = 문자열을 자바스크립트 문장으로 변환한다
+ex: 수식은 계산, 문자는 변수로
+
+문자로 표현 된 JavaScript 코드를 실행하는 함수
+eval(string)
+
+문자로 표현 된 JavaScript 코드를 실행하는 함수
+
+console.log(eval('2 + 2'));
+// expected output: 4
+

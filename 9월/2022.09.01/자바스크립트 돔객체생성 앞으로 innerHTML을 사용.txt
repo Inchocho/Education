@@ -1,0 +1,55 @@
+9월 1일
+
+자바스크립트
+
+element - 요소
+attribute - 속성
+
+setAttribute('name','value');
+
+ex)newDivObj.setAttribute('id', 'firstDiv');
+
+getAttribute('name'); -- 해당 name의 값을 가져옴
+
+ex)newDivObj.getAttribute('id'); -- firstDiv
+
+자바
+1. 인자 (argument) 인자는 메소드, 생성자를 호출할때 데이터를 매개변수에 값을 전달해준다. 
+2. 매개변수 (parameter) 매개변수는 메소드, 생성자를 선언할 때, 
+   어떤 형태로 데이터값이 들어올지 정의해준다.
+   
+   	<script type="text/javascript">
+		var htmlStr = '';	>> 문자열 그자체인 변수로 사용하는것이지 태그가 아님
+		
+// 		htmlStr = htmlStr + '<div id="domContentDiv">';
+// 		htmlStr = htmlStr + '<h1>DOM 마지막 문제</h1>';
+// 		htmlStr = htmlStr + '<p>문서의 각 요소(객체)들을 구조화한 것입니다.</p>';
+// 		htmlStr = htmlStr + '</div>';
+		
+//		앞으로 할당연산자(+=)를 사용한다 --> var += ~ 는 var = var + ~를 단축한것
+		htmlStr += '<div id="domContentDiv">';
+		htmlStr += '<h1>DOM 마지막 문제</h1>';
+		htmlStr += '<p>문서의 각 요소(객체)들을 구조화한 것입니다.</p>';
+		htmlStr += '</div>';	
+		
+		var rootDivObj = document.getElementById('rootDiv');
+		
+		rootDivObj.innerHTML = htmlStr;
+		
+	</script>
+	
+앞으로 문자열은 완벽하게 사용할줄 알아야 한다	
+
+앞으로는 위와 같은 방식으로 문자열로 객체를 완성시켜서 사용한다
+
+DOM 탐색방식에서 - getAttribute, setAttribute는 왠만하면 사용을 안한다 지양한다 부모자식 관계 만드는거 너무 느려서
+
+앞으로 document.write는 사용하지 않는다
+
+innerHTML을 사용한다!!
+
+innerHTML에 완성된 문자열을 집어넣으면 객체를 완성시킨다
+
+DOM객체 조작언어는 왠만하면 쓰지마라
+
+파일 >> basicJavascript2.jsp 참조

@@ -1,0 +1,154 @@
+9월15일 수업(회원가입시 새로고침,뒤로가기시 문제발생 방지용)
+			//5단계 : 등록성공 메시지 보여주는데 한글 안깨지게 하려고 
+			//+ html로 보여주기위해서 ContentType과 인코딩을 설정해줌
+			res.setContentType("text/html");
+			res.setCharacterEncoding("UTF-8");		
+			
+			PrintWriter out = res.getWriter();
+
+			String htmlStr = "";
+			
+			htmlStr += "<html><head><title>회원등록결과</title>";
+			// 새로고침을 자동으로 수행하게 만듬(url은 동일디렉토리에서 list로)
+			// 즉 member/add 에서 1초후 member/list로 새로고침됨
+			// content는 걸리는시간(content = 1 => 1초)
+			htmlStr += "<meta http-equiv='Refresh' content='5; url=list'>";
+			htmlStr	+= "</head>";
+			htmlStr += "<body>";
+			htmlStr += "<p>등록 성공입니다!</p>";
+			htmlStr += "</body></html>";
+			
+			out.print(htmlStr);
+			
+출처 : MemberAddServlet.class(web04_166 프로젝트)
+위 코드를 주석처리하고
+res.sendRedirect("./list");로 변경한다
+
+JSP 페이지에서 특정한 작업을 수행한 후 지정한 페이지로 이동하고 싶은 경우가 있을 것이다. 
+예를 들어, 게시판에 글을 저장한 후에 목록 페이지로 이동하는 경우가 이에 해당한다. 이렇게 특정 처리 후, 
+또는 특정 조건일 때에 지정한 페이지로 이동하고 싶은 경우 많이 사용되는 것이 
+response.sendRedirect() 메소드이다. (물론, 서블릿 프로그래밍에서도 같은 이유로 사용된다.)
+			
+			
+#리다이렉트
+
+-리다이렉트는 웹 서버가 웹 브라우저에게 다른 페이지로 이동하라고 응답하는 기능이다.
+
+
+#페이지 이동 방법에는 다양한 방법이 있는데 리다이렉트는 다음과 같은 차이가 있다.
+
+1. 클라이언트에서 이동경로 결정한다.
+<a> / 태그
+submit / 타입
+
+2. 서버가 이동경로를 결정한다.
+sendRedirect / 메소드
+
+
+#사용하는이유
+
+-요청이 변한다. 
+-멱등(연산을 여러 번 적용하더라도 결괏값이 달라지지 않는 일.)이 아닌 경우
+-새로고침(마지막request를 다시 요청)하는것을 방지 
+-리다이렉트가 페이지를 이동시키는 코드지만 밑에 다른 소스코드들도 무시되는게 아니라 실행된다.			
+
+sendRedirect로 처리할경우
+기존의 요청-응답이 끝나고 새로운 요청 - 응답이 생긴다 
+request,response의 정보가 새롭게 생성된다(기존의 정보가 파괴된다)
+
+출처: https://pingfanzhilu.tistory.com/entry/JSP-%EA%B8%B0%EC%B4%88-9-JSP-%EB%AC%B8%EB%B2%95-responsesendRedirect
+
+forward 방식: 웹 컨테이너 차원의 페이지 이동, 웹 브라우저는 다른 페이지로 이동했음을 알 수 없고,  브라우저에 최초 호출한 URL이 표시된다.
+최초 요청 (클라이언트 -> request -> URL 1)
+forward (URL 1 -> forward -> URL 2)
+응답 (URL 2 -> response -> 클라이언트)
+
+redirect 방식: 다른 웹 컨테이너에 있는 주소로 이동 가능, 웹 브라우저는 URL을 지시된 주소로 바꾸고 그 주소로 이동
+최초 요청 (클라이언트 -> request 1 -> URL 1)
+redirect할 새로운 URL 2 리턴 (URL 1 -> redirect -> 클라이언트)
+URL 2 요청 (클라이언트 -> request 2 -> URL 2)
+응답 (URL 2 -> response -> 클라이언트)
+
+요청1과 요청2는 서로 다른 각각의 새로운 요청이다
+
+forward 방식									sendRedirect 방식
+JSP 액션 태그이다.								JSP 내장 객체이다. (response)
+요청 정보가 유지된다.								새로운 요청이 수행된다.
+URL이 변화하지 않는다.							URL이 변화한다.
+객체를 재사용한다.								객체를 재사용하지 않는다. (새로운 요청)
+시스템 변화가 생기지않는 요청에 적합 (검색 등의 단순 조회)	시스템 변화가 생기는 요청에 적합 (로그인, 글쓰기 등)
+
+
+#######################Redirect와 RequestDispatcher의 차이##############################
+요청 재지정 
+클라이언트로부터 요청 받은 Servlet 프로그램이 응답을 하지 않고 
+다른 자원에 수행 흐름을 넘겨 다른 자원의 처리 결과를 대신 응답하는것 또는
+다른 자원의 수행 결과를 포함하여 응답하는 것.
+
+요청 재지정 기능 구현에 사용되는 API는 javax.servlet 패키지의 RequestDispatcher 입니다
+
+RequestDispatcher란? 
+클라이언트로부터 최초에 들어온 요청을 
+JSP/Servlet 내에서 원하는 자원으로 요청을 넘기는(보내는) 역할을 수행하거나, 
+특정 자원에 처리를 요청하고 처리 결과를 얻어오는 기능을 수행하는 클래스입니다. 
+즉 /a.jsp 로 들어온 요청을 /a.jsp 내에서 RequestDispatcher를 사용하여 
+b.jsp로 요청을 보낼 수 있습니다. 또는 a.jsp에서 b.jsp로 처리를 요청하고 
+b.jsp에서 처리한 결과 내용을 a.jsp의 결과에 포함시킬 수 있습니다.
+
+요청을 보내는 방법으로는 RequestDispatcher#forward()와 RequestDispatcher#include() 두 가지 방법이 있습니다.
+
+RequestDispatcher 생성(얻는) 방법
+RequestDispatcher는 ServletContext나 ServletRequest 클래스에서 제공하는 팩토리 메서드(Factory Method)를 통해 얻을 수 있습니다. 
+
+[1]ServletContext을 통해서 얻는 법
+서블릿 클래스에서 ServletContext를 사용하여 RequestDispatcher를 얻을 수 있습니다.
+
+호출 대상을 web.xml에 지정한 서블릿 이름(<servlet-name>)으로 지정하는 방법 
+
+ServletContext context = this.getServletContext(); 
+RequestDispatcher dispatcher = context.getNamedDispatcher("helloServlet");   
+
+호출 대상을 URL 경로로 지정하는 방법. 웹어플리케이션 루트경로를 기준으로 절대경로만 지정할 수 있습니다.
+
+ServletContext context = this.getServletContext(); 
+RequestDispatcher dispatcher = context.getRequestDispatcher("/hello");       
+
+JSP 페이지에서는 application 기본객체를 이용합니다.
+
+<%
+     RequestDispatcher dispatcher = application.getRequestDispatcher("/hello");             
+%>
+
+[2]ServletRequest를 통해서 얻는 법
+서블릿 클래스에서는 service() 메서드나 doGet() doPost() 등에서 
+ServletRequest의 하위 클래스인 HttpServletRequest를 매개변수로 받기 때문에 이것을 이용하여 
+RequestDispatcher를 얻을 수 있습니다. HttpServletRequest에서는 URL 경로를 통해서 대상을 지정하는 한가지 방법만을 제공합니다. 
+ServletContext를 통해서 대상을 지정할때와는 다르게 절대경로 및 상대경로 모두 지정이 가능합니다.
+JSP 페이지에서도 ServletRequest의 인스턴스인 request 기본객체가 있으므로 쉽게 얻을 수 있습니다.
+
+RequestDispatcher dispatcher = request.getRequestDispatcher("/hello");         
+
+
+
+1. 서블릿에서 값을 넘겨주지 않고 페이지만 이동하는 방법 (SendRedirect)
+
+response.sendRedirect('jsp경로'); 
+
+- 해당 jsp 경로로 이동하라는 의미(꼭 jsp경로만 적을수 있는건 아님)
+- 서블릿에서 처리한 데이터를 별도로 넘기지 않고 페이지만 이동함(session 객체와는 별개)
+
+​
+
+2. 서블릿에서 값을 넘겨주고 해당 페이지에서 처리할 수 있도록 하는 방법 (RequestDispatcher)
+
+RequestDispatcher view = request.getRequestDispatcher("경로"); 
+
+request.setAttribute("key",value);
+
+view.forward(request, response);
+
+- 서블릿에서 처리한 데이터를 jsp에서 가져다가 사용해야 할 때 쓰는 객체
+- RequestDispatcher는 이동할 경로를 설정하고 생성
+- 생성된 객체를 가지고 forward 메소드를 통해 해당 경로 페이지로 이동할 수 있음
+- 이때, sendRedirect와는 다르게 request와 response 객체를 가지고 이동할 수 있음
+- 호출된 페이지에서는 request.getAttribute() 메소드를 통해 넘겨받은 데이터를 처리할 수 있음

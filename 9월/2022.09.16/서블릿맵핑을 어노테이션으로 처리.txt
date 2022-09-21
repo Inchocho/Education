@@ -1,0 +1,15 @@
+기존 web.xml에서 서블릿 작성
+
+  <servlet>  	
+  	<servlet-name>MemberList</servlet-name>
+  	<servlet-class>spms.servlets.MemberListServlet</servlet-class>
+  </servlet>  
+  <servlet-mapping>
+  	<servlet-name>MemberList</servlet-name>
+  	<url-pattern>/member/list</url-pattern>
+  </servlet-mapping>
+
+위의 web.xml작업을 어노테이션을 통해 단축
+@WebServlet(value= "url 주소값");
+@WebServlet(value = "/member/list");
+

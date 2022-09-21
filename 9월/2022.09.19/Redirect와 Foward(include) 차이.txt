@@ -1,0 +1,24 @@
+페이지 전환시 방법 
+
+1.Redirect(DB의 상태변화, 영향을 미칠때 사용)
+Redirect를 통하면 기존의 요청/응답은 사라지고 
+해당 URL로 새로운 요청이 발생한다
+
+res.sendRedirect("response URL");
+
+사용처 : 클라이언트에 요청에 의해 서버의 DB에 변화가 생기는 작업 (회원정보 수정등)
+
+2.Foward(DB를 조회할때 주로 사용됨, 내용(req,response 내장객체)을 담은채로 이동하므로)
+Web container 차원에서 페이지 이동만 있다. 실제로 웹 브라우저는 다른 페이지로
+이동했음을 알 수 없다. 그렇기 때문에, 브라우저에는 최초에 호출한 URL이 표시되고
+이동한 페이지의 URL 정보는 볼 수 없다. 동일한 웹 컨테이너에 있는 페이지로만 
+이동할 수 있다
+
+** 현재 실행중인 페이지와 forward에 의해 호출될 페이지는 request와 response 객체를 
+공유한다 
+
+RequestDispatcher 역할 : 요청을 응답할 URL주소로 전달 
+(RequestDispatcher rd = request.getRequestDispatcher("response URL");
+rd.foward(request,response)
+
+사용처 : 특정 URL에 대해 외부에 공개되지 말아야 하는 부분을 가리거나 조회를 위해 즉 DB 상태에 영향이 없음

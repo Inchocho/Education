@@ -1,0 +1,32 @@
+
+불리언(Boolean)
+java.lang.Boolean
+${true}
+${3 > 2}
+${10 == 10}
+
+true와 false값을 가지며, 참 거짓을 표현합니다.
+
+
+정수
+java.lang.Long
+${777}
+0 ~ 9로 이루어진 정수를 표현하며, 음수 표현시 -가 붙습니다.
+
+실수
+java.lang.Double
+${3.14}
+실수를 표현하며 소수점 사용 및 지수형 표현이 가능합니다.
+
+
+문자열
+java.lang.String
+${'dololak'}
+${"dololak"}
+문자열로 'dololak' 또는 "dololak"으로 표현이 가능합니다.
+
+
+null값
+null
+${null}
+null을 표현합니다. 표현언어의 결과가 null인 경우 최종적으로 출력하는 값은 ""(공백문자열) 입니다.

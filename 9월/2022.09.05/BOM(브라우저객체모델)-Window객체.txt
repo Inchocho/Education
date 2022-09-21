@@ -1,0 +1,101 @@
+###Window 객체### 최상위 객체 (즉 왠만한 프로퍼티들은 전부 window에 등록되고, window는 최상위라 생략되서 자주 사용된다)
+
+브라우저 객체 모델(BOM)이란?
+자바스크립트를 이용하면 브라우저의 정보에 접근하거나 브라우저의 여러 기능들을 제어할 수 있습니다.
+
+이때 사용할 수 있는 객체 모델이 바로 브라우저 객체 모델(BOM, Browser Object Model)입니다.
+브라우저 객체 모델(BOM)은 문서 객체 모델(DOM)과는 달리 W3C의 표준 객체 모델은 아닙니다.
+하지만 이 모델은 자바스크립트가 브라우저의 기능적인 요소들을 직접 제어하고 관리할 방법을 제공해 줍니다.
+자바스크립트에서는 이러한 BOM 모델의 객체들을 전역 객체(global object)로 사용할 수 있습니다.
+
+###Window 객체###
+window 객체는 웹 브라우저의 창(window)을 나타내는 객체로, 대부분의 웹 브라우저에서 지원하고 있습니다.
+자바스크립트의 모든 객체, 전역 함수, 전역 변수들은 자동으로 window 객체의 프로퍼티가 됩니다.
+window 객체의 메소드는 전역 함수이며, window 객체의 프로퍼티는 전역 변수가 됩니다.
+문서 객체 모델(DOM)의 요소들도 모두 window 객체의 프로퍼티가 됩니다.
+
+일단은 BOM(최상위) -> DOM(상위) -> ~~~ 라고 생각하면 된다
+
+window 객체의 load 이벤트는 스타일, 이미지 등의 리소스들이 모두 로드되었을 때 실행됩니다. 
+
+##window.onload##
+window.onload : 최종 실행 시 브라우저 내의 모든 요소가 준비되면 호출되며, 등록된 이벤트는 상시 대기를 수행합니다    
+즉 함수를 window.onload 안에 작성하면 window.onload는 문서를 모두 읽고나서 실행되기 때문에 script에서 참조할 id나 class가 
+모두 완성된 상태인 문서를 참조해서 실행되기 때문에 script의 위치가 body 위에있든 아래에있든 문제없이 실행된다
+
+########한 페이지에는 하나의 window.onload() 함수만 적용된다.#######################
+
+##window.onload 사용법##
+window.onload = function(){
+	function test1(){
+		~~~
+	}
+	var test2 = ~~~;
+	~~~~~ 각종 프로퍼티(변수 함수 뭐시기 저시기)
+}
+
+이게 무엇이냐? 바로 window.onload를 오버라이딩(재정의)해서 
+DOM TREE 완성후 (문서를 전부 읽고난뒤) 실행이 되어 해당값을 가져 올 수 있다.
+
+++
+오버로딩(overloading)은 이름은 같지만 시그니처(파라미터 수, 타입) 데는 다른 메소드를 중복으로 선언하는 것을 의미한다
+이름만 같은 새로운 메소드를 정의하는것 (기존메소드랑 무관)
+
+오버라이딩(overriding)은 부모 클래스의 메소드의 동작 방법을 변경(재정의)하여 우선적으로 사용하는 것이다
+상속받은 기존의 메소드를 재정의하는것 (상속받은 메소드를 변경함)
+
+오버로딩(Overloading)은 기존에 없던 새로운 메서드를 정의하는 것이고,
+오버라이딩(Overriding)은 상속 받은 메서드의 내용만 변경 하는 것이다. 
+#자바에서는 메소드 오버라이딩을 통해 상속받은 부모 클래스의 메소드를 자식 클래스에서 직접 재정의할 수 있습니다.#
+
+구분 		메소드 이름 	 매개변수, 타입 	 	   리턴 타입
+오버로딩 	  동일 			 다름 			상관없음 
+오버라이딩    동일 			 동일				동일
+
+##사용 예제##
+	<script>
+	window.onload = function(){
+		function theFnc(){
+			alert('이벤트 분리형 방식');
+		}
+		
+		var myBtn1 = document.getElementById('btn1');
+		myBtn1.onclick = theFnc;
+	}	
+	</script>
+	
+	<body>
+		<button id='btn1'>
+			버튼2
+		</button>	
+	</body>
+	
+이 경우 이벤트를 통한 함수 호출(onclick시 theFnc 함수 실행)	
+#############
+	
+##사용 예제2##
+	<script>
+	function test1(){
+		var aa1Obj = document.getElementById('aa1');
+		var aa2Obj = document.getElementById('aa2');
+		
+		var aa1ObjValue = aa1Obj.value;  
+		aa2Obj.value = aa1ObjValue;
+	}
+	
+	window.onload = test1();	
+	</script>
+	
+	<body>
+		<div>
+			<button onclick = 'test1();'>버튼1</button>
+			<input type="text" id='aa1'/>				
+			<input type="text" id='aa2'/>
+		</div>								
+	</body>
+
+이경우 함수를 직접 호출해서 실행가능
+###########
+
+위경우 window.onload에 함수가 작성되게 함으로써 기존 방식대로 작성할시 id를 참조하지 못해 에러가 나야하지만 문서를 모두 읽고 그다음
+함수가 실행되어 문서내 id를 참조해서 에러없이 실행된다.

@@ -1,0 +1,19 @@
+	<script type="text/javascript">
+		window.onload = function(){
+			function spman(){				
+				var inputObjList = document.getElementsByName('sports');				
+										
+				for (var i = 0; i < inputObjList.length; i++) {
+					if(inputObjList[i].checked == true){	
+						alert(inputObjList[i].value);
+						break;
+					}
+				}	
+			}
+							
+		}
+	</script>
+	
+	<input type="button" value="결정!" id ='test1' onclick='spman();'>
+	
+	현재 오류남 원래 됬었음 (원래가 내가 된게 아니라 옛날에는 이렇게 명시해도 함수가 작동했다는 뜻임)

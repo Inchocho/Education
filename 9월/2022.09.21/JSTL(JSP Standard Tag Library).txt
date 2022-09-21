@@ -1,0 +1,27 @@
+JSTL(JSP STANDARD Tag Libaray)
+JSP 확장 태그
+JSP 기본 태그가 아니다
+JSTL 태그를 사용하면 JSP 페이지에서 자바 코딩을 줄일 수 있다
+이는 웹 디자이너나 웹 퍼블리셔와의 공동 작업을 원할하게 진행 할 수 있도록
+도와준다 
+
+JSTL 주요 태그 사용법 
+태그 라이브러리 선언
+<%taglib uri="사용할 태그 라이브러리" prefix="접두사" %>
+
+(코어,포맷 중요)
+태그라이브러리			접두사			관련 URI											주요기능
+#Core(코어)			c				https://java.sun.com/jsp/jstl/core				변수 지원, 흐름 제어, URL 처리
+#fmt(포맷)			fmt				https://java.sun.com/jsp/jstl/fmt				지역, 메시지 형식, 숫자, 날짜 형식(국제화)
+xml					x				https://java.sun.com/jsp/jstl/xml				xml 코어, 흐름 제어, xml 변환
+데이터베이스			sql				https://java.sun.com/jsp/jstl/sql				SQL
+함수					fn				https://java.sun.com/jsp/jstl/functions			컬렉션 처리, 문자열(String) 처리
+
+<c:forEach var="변수명" items="목록데이터" begin="시작위치" end="종료위치">
+	반복할 내용들
+</c:forEach>
+
+<c:forEach var="memberDto" items="${memberList}">
+이경우 memberDto를 목록데이터(배열단위)인 memberList를 default값: 0번인덱스부터 마지막인덱스까지 입력이된다
+
+

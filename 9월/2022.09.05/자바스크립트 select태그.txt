@@ -1,0 +1,92 @@
+자바스크립트
+select
+option
+(부모자식 관계)
+select>option
+table>tr>td처럼
+ul>li처럼
+
+<select id="mySelect" size="8">
+  <option>Apple</option>
+  <option>Pear</option>
+  <option>Banana</option>
+  <option>Orange</option>
+</select>
+
+select태그의 사이즈는 칸을 의미한다 (즉 select size ="8"이면 셀렉트박스가 8개인것)
+
+[JavaScript] Select 태그의 값을 순서, Index로 찾기, ##SelectedIndex##
+selectedIndex와 selected가 매우 중요하다 몇번째 위치를 찾을때 필요함
+
+	<script type="text/javascript">
+		function selTest(){
+			var selListObj = document.getElementById('selList');
+			var selListObjValue = selListObj.value; 
+			alert(selListObjValue);
+		}
+	</script>
+	
+	<select id="selList" onchange="selTest();" size="1">
+		<!-- 셀렉박스 내용 변경 시 선택한 value를 경고창으로 출력하시오 -->
+		<option value="http://www.naver.com">네이버</option>
+		<option value="http://www.daum.net">다음</option>
+		<option value="http://www.gmail.com">G메일</option>
+	</select>	
+	
+실제로 select 태그에는 value가 없지만 에러가 아니라 실행이 잘 된 이유
+select의 자식태그인 option의 value가 잡힌것이다
+
+실제로 사용해야하는 방법
+
+//방법1
+		function selTest(){			
+			var selListObj = document.getElementById('selList');
+			
+			var selListOptionObjList = selListObj.getElementsByTagName('option');
+			var selListOptionFirstValue = '';
+			
+			for (var i = 0; i < selListOptionObjList.length; i++) {
+				if(selListOptionObjList[i].selected == true){	
+					alert(selListOptionObjList[i].value);
+				}
+			}	
+		}	
+		
+	<body>
+		<form>
+			<select id="selList" onchange="selTest();" size="1">
+				<!-- 셀렉박스 내용 변경 시 선택한 value를 경고창으로 출력하시오 -->
+				<option value="http://www.naver.com" selected="selected">네이버</option>
+				<option value="http://www.daum.net">다음</option>
+				<option value="http://www.gmail.com">G메일</option>
+			</select>
+		</form>
+	</body>
+
+//방법3 :form을 이용한 방식 --> 중요! selectedIndex를 이용한다
+
+selected를 이용한방법 
+selectedIndex가 매우 중요하다
+
+		function selTest(){			
+			var selListObj = document.getElementById('selList');
+			
+			//option들중 선택 된 항목의 인덱스 번호를 가져온다(배열)
+			var idx = selListObj.options.selectedIndex;
+			
+			//option에 몇번째의 값을 가지고온다
+			alert(selListObj.options[idx].value);
+		}	
+		
+	<body>
+		<form>
+			<select id="selList" onchange="selTest();" size="1">
+				<!-- 셀렉박스 내용 변경 시 선택한 value를 경고창으로 출력하시오 -->
+				<option value="http://www.naver.com" selected="selected">네이버</option>
+				<option value="http://www.daum.net">다음</option>
+				<option value="http://www.gmail.com">G메일</option>
+			</select>
+		</form>
+	</body>		
+	
+SelectElement.add()  -> 셀렉트 tag에서 옵션tag 추가할때 사용

@@ -1,0 +1,10 @@
+//실제로 유효성검사 ''(디폴트 빈칸값), null, undefined 다 필요하다
+//json과 같은 object 타입에서 많이 만날 수 있는데, (즉 객체타입의 경우 null또는 undefined) 
+//if(문자열 == "") 와 같은 방식으로는 처리가 되지 않는 경우가 있다.
+
+if(idObj.value == '' || idObj.value == null || idObj.value == undefined){
+	alert('아이디를 입력하세요!');
+	idObj.focus();
+}
+
+자바스크립트 빈칸 유효성검사할때 ''(빈칸)만 하는게 아니라 null과 undefined도 체크하자
