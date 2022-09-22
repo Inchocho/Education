@@ -1,0 +1,58 @@
+매개변수(parameter)
+
+public void addOne(int a, int b); 
+
+매개변수 int형 a,b
+
+
+전달인자(argument)
+
+int firstNum = 50;
+int secondNum = 25;
+
+Calculator cal = new Calculator();
+
+cal.addOne(firstNum, secondNum); --> 여기서 firstNum과 secondNum이 전달인자 (argument)
+
+트랜잭션(Transaction 이하 트랜잭션)이란, 
+데이터베이스의 상태를 변화시키기 해서 수행하는 작업의 단위를 뜻한다.
+"쪼갤 수 없는 업무 처리의 최소 단위"
+
+
+다형성이란(polyporhism)
+일단 다형성이란 큰 객체 안에 작은 객체를 넣어서 여러 형태로 변환해 사용하는 것인데
+코드를 통해 한번 알아보자
+
+public class Human(){
+	public void call(){
+		System.out.println("부모 안녕");
+	}
+}
+
+public class Minsu Extends Human{
+	public void call(){
+		System.out.println("민수 안녕");
+	}
+	
+	public void hello(){
+		System.out.println("안녕더블");
+	}
+}
+
+부모 : Human클래스 , 자식: Minsu 클래스 
+다형성이란?
+
+
+Human h = new Minsu(); --> Human객체에 민수 객체를 넣음
+이경우 묵시적으로 형변환됨 Human h = new (Human)Minsu();
+h.call(); 
+
+이경우 민수안녕이 호출됨
+
+그러나 
+
+Minsu m = new Human()은 불가능 (민수는 부모클래스 Human에서 기능을 확장했기때문에 불가하다)
+이걸 형변환을 통해서는 가능함
+
+Minsu m = (Minsu)Human -- 반드시 명시해야함
+부모타입 Human을 자식타입 Minsu로 형변환했기떄문에 사용가능

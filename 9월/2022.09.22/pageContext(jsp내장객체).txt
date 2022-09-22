@@ -1,0 +1,40 @@
+JSP 내장객체
+pageContext
+
+pageContext 
+ javax.servlet.jsp.PageContext 
+ JSP 페이지에 대한 정보를 저장한다. 
+
+pageContext의 메소드, 반환형, 설명
+
+ getRequest() 
+ ServletRequest 
+ request 기본 객체를 구한다. 
+
+ getResponse() 
+ ServletResponse 
+ response 기본 객체를 구한다. 
+
+ getSession() 
+ HttpSession 
+ session 기본 객체를 구한다. 
+
+ getServletContext() 
+ ServletContext 
+ application 기본 객체를 구한다. 
+
+ getServletConfig() 
+ ServletConfig 
+ config 기본 객체를 구한다. 
+
+ getOut()
+ JspWriter 
+ out 기본 객체를 구한다.
+
+ getException()
+ Exception 
+ exception 기본 객체를 구한다. 
+
+ getPage()
+ Object 
+ page 기본 객체를 구한다. 
