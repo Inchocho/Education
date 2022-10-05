@@ -1,0 +1,85 @@
+https://mvnrepository.com/artifact/org.springframework/spring-context/4.3.9.RELEASE
+maven central repository 검색해서 사이트 들어가서 Spring Context 검색해서 4.3.9(릴리즈버전) 다운로드
+
+Spring Context » 4.3.9.RELEASE 들어가면 Maven dependency가 보임
+
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>4.3.9.RELEASE</version>
+	</dependency>
+
+아래 방식처럼 porm.xml에 디펜던시에 추가해서 사용가능하다
+
+<dependencies>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>4.3.9.RELEASE</version>
+	</dependency>
+</dependencies>
+
+###스프링 프로젝트 세팅###
+
+프로젝트명 : SpringFirst
+DynamicWebProject로 생성
+
+세팅 - source folders on build path(프로젝트명 적고 next넘어간 화면) -- 무조건 수동
+(귀찮으면 spring legacy 프로젝트로 만들면됨)
+
+src/main/resources
+src/main/java
+src/test/java	
+src/test/resources
+폴더 추가 
+
+Default output folder
+-> build/classes 입력
+
+content Directory : src/main/webapp
+
+--Convert To MavenProject에서 설정
+그룹Id : kr.co.ezen 
+아티팩트Id : SpringFirst (디폴트로 프로젝트명 들어옴)
+버전 : 0.0.1-SNAPSHOT (디폴트 버전임)
+
+porm.xml에 디펜던시 추가
+<dependencies>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>4.3.9.RELEASE</version>
+	</dependency>
+</dependencies>
+
+src/main/java에
+
+HelloDao(메소드가 들어있는 클래스) , HelloMain(HelloDao 호출하여 메소드 실행) 클래스 생성
+
+public class HelloDao{
+	public int addNum(int a, int b){
+		return a+b;
+	}
+}
+
+이를 Spring으로 실행하기(bean을 생성하여 실행)
+
+src/main/resources 
+-> spring-context파일 생성 (other -> spring -> Spring Bean Configuration file)
+-> next select desired XSD ~~ 에서 beans 선택 버전 첫번째거 선택(1.0버전)
+
+생성후 spring-context.xml 파일에 
+<bean id="helloDao" class="kr.co.ezen.HelloDao"/> 추가
+
+HelloMain에 기존코드 (HelloDao helloDao = new HelloDao())를 지우고 
+
+	AbstractApplicationContext ctx
+		= new ClassPathXmlApplicationContext("/spring-context.xml");
+	
+	HelloDao helloDao = ctx.getBean("helloDao", HelloDao.class);
+	
+//getBean(bean id값, HelloDao.class)
+//키밸류로 생각하면된다(?) helloDao라는 키를 통해 HelloDao클래스객체값을 꺼냈다?
+//기존 HelloDao helloDao = new HelloDao();
+HelloDao helloDao = ctx.getBean("helloDao", HelloDao.class);	
