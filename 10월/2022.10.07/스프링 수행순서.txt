@@ -1,0 +1,161 @@
+스프링 MVC패턴 실행순서
+
+(springHome members를 기준으로)
+
+[1]web.xml이 읽힘 (설정관련) -- bean으로 등록됨(DI로 모두 구현됨)
+[2]servlet-context에서 좀더 상세한 정보를 읽음 (컨테이너를 조작 -- 실제로는 root-context가 최상위지만 현재는 servlet-context만 사용할것)
+실제로는 root-context(최상위) - servlet-context로 구성됨
+[3]datasource.xml jdbc나 DB연결을 관리함 (sqlSessionFactory에서 관리)
+
+---
+[3-1]데이터베이스를 조작하는 일반적인 기술인 jdbc를 대체할 기술 mybatis를 사용함 (mybatis-config.xml)
+
+프레젠테이션 레이어 
+
+-- [4]MemberController
+	컨트롤러로 들어옴 주소를 요청 
+	web.xml에서 dispatcherServlet이 읽힘(dispatcherServlet이 모든 url을 관리한다)
+	
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	앞으로 무조건 url패턴은 ~~.do로 끝나야 한다(보안위해서 url패턴을 생성함)
+	모든 주소체계 + .do를 작성해야함 (회사마다 다 다름 *.dododo~ 다 지맴임)
+	
+	@RequestMapping(value = "/member/list.do", method = RequestMethod.GET) 맵핑을 통해서
+	MemberController로 들어온다
+	
+	[5]MemberService로 이동(인터페이스) 추상메소드 이거 구현해라 (틀을 반드시 지켜야함)
+	public List<MemberDto> memberSelectList();
+	
+	[6]MemberServiceImpl로 이동 (메소드를 구현해야됨)
+	@Service (서비스 컴포넌트) 반드시 @Service 어노테이션 작성
+	
+	@Autowired
+	MemberDao memberDao;
+	
+	@Override
+	public List<MemberDto> memberSelectList() {
+		// TODO Auto-generated method stub
+		
+		return memberDao.memberSelectList();
+	}
+	
+	[7]memberDao로 이동함 (서비스랑 동일)
+	
+	[8]memberDaoImpl로 이동 (실제로 DB를 호출해서 작업)
+	
+	@Autowired
+	SqlSessionTemplate sqlSession;
+	
+	@Override
+	public List<MemberDto> memberSelectList() {
+
+		return sqlSession.selectList("com.edu.members.memberSelectList"); --> [9] edu_members.xml로 이동
+	}
+	
+	@Repository 어노테이션 작성(DB작업하려면 필요)
+	
+	[8-1]jdbc:properties파일 (반드시 공백존재하면 안됨)
+	jdbc.driverClassName=oracle.jdbc.driver.OracleDriver (key,value)
+	jdbc.url=jdbc:oracle:thin:@localhost:1521:xe            
+	jdbc.username=ezen
+	jdbc.password=ezen  
+	jdbc.initialSize=3
+	
+	datasource.xml을 보면 
+	db생성
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<property name="initialSize" value="${jdbc.initialSize}"/>
+	</bean>
+
+	생성된 db를 참조해서 sqlSessionFactory생성
+	<bean id="sqlSessionFactory" 
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation"
+		 	value="classpath:/config/mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:/mappers/*.xml"/>
+	</bean>
+	
+	sqlSessionTemplate를 통해 참조해서 작업(?)
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+		<constructor-arg index="1" value="SIMPLE"/>
+	</bean>	
+	
+	[9]edu_members.xml
+	<mapper namespace="com.edu.members">	-- 패키지명처럼 쓰임
+	이제 com.edu.members~로된 경로의 수행은 여기서 실행된다
+	
+	###맵핑작업 (실제 DB 칼럼값과 DTO 멤버변수를 맵핑)
+	(테이블의 기본키(primary key)는 id column으로 작성해야한다)
+	
+	MybatisConfig에서 typeAlias를 통해 memberDto로 잡아줌
+	<typeAlias type="com.edu.member.model.MemberDto" alias="memberDto"/> 실제 DTO위치, 축약형
+	
+	resultMap의 타입은 com.edu.member.model.MemberDto인것
+	
+	<resultMap type="memberDto" id="memberResultMap">
+		<id column="MNO" property="no"/>
+		<result column="MNAME" property="name"/>
+		<result column="EMAIL" property="email"/>
+		<result column="PWD" property="password"/>
+		<result column="CRE_DATE" property="createDate"
+			javaType="java.util.Date"/>
+		<result column="MOD_DATE" property="modifyDate"
+			javaType="java.util.Date"/>		
+	</resultMap>
+	
+	column -> DB에서 테이블 칼럼값
+	property -> DTO에서 작성한 멤버변수값 (DB에 칼럼과 DTO에 멤버값이 다를경우 맞추는 작업을 한것)
+	ex) memberDto 에서 유저번호는 no 실제 DB 테이블 칼럼값은 MNO 
+	즉 resultMap에서 DB칼럼과 DTO변수값이 다른것을 맵핑해주는 작업을 한다
+	날짜타입등 특별한 타입은 반드시 javaType을 명시해줘야한다(형변환작업 DB에서의 DATE타입과 JAVA에서 DATE타입은 다르므로)
+	이렇게 맵핑한 resultMap을 아래에 담는것이다
+	
+	
+	###맵핑작업후 쿼리를 실행
+	<select id="memberSelectList" resultMap="memberResultMap">
+		SELECT MNO, MNAME, EMAIL, CRE_DATE
+		FROM MEMBERS
+		ORDER BY MNO DESC
+	</select>
+	
+	resultMap --> 가상의 변수를 담을 수 있는 변수가 생성됨 (조회에서 resultSet 사용한것 생각하면됨)
+	
+	-- namespace(com.edu.members) + id(memberSelectList)를 합쳐서 수행이된것
+	[8]daoImpl에서 return sqlSession.selectList("com.edu.members.memberSelectList");
+	
+	[10]이게 MemberController
+	List<MemberDto> memberList = memberService.memberSelectList(); 여기에 해당한다 
+	즉 [9]번까지 작업이 수행된후 
+	
+	memberList에는 조회된 정보가 들어있다
+	
+	이것을 이제 request가 아닌 model에 담아서 
+	
+	model.addAttribute("memberList", memberList);
+	
+	return "member/MemberListView";
+	
+	멤버폴더 하위 MemberListView로 전달한다
+	
+	servlet-context를 보면 접두,접미에 값이 들어와있음
+	
+	<bean id="viewResolver"
+	 class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>		
+	</bean>	
+	
+	즉 memberController에서 return "member/MemberListView";는 실제로는 
+	
+	return "/WEB-INF/views/member/MemberListView.jsp"가 되는것이다
