@@ -1,0 +1,187 @@
+오라클 ROWNUM을 통해 특정열 갯수를 조회하기
+
+서브쿼리를 통해 ROWNUM을 조회한 결과 A를 참조하여 조회하면된다 
+마지막으로 ROWNUM은 테이블 자체의 ROWNUM을 사용한다
+
+ROWNUM과 테이블을 분리시킨다
+
+[1]단계
+SELECT MNO, EMAIL, PWD, MNAME, CRE_DATE, MOD_DATE
+FROM MEMBER
+ORDER BY CRE_DATE DESC;
+
+[2]단계
+SELECT ROWNUM
+FROM (SELECT MNO, EMAIL, PWD, MNAME, CRE_DATE, MOD_DATE
+FROM MEMBER
+ORDER BY MNAME DESC) MEMBER_ORDER;
+
+[3]단계
+SELECT RNUM, MNO, EMAIL, MNAME, PWD, CRE_DATE, MOD_DATE
+FROM (SELECT ROWNUM RNUM, MNO, EMAIL, PWD, MNAME, CRE_DATE, MOD_DATE
+    FROM (SELECT MNO, EMAIL, PWD, MNAME, CRE_DATE, MOD_DATE
+        FROM MEMBER
+        ORDER BY MNAME DESC) M
+) MEMBER
+WHERE RNUM >= 21
+AND RNUM <= 30;
+
+[1]ORDER BY 한 테이블을 만들고 (가상테이블 M) 
+[2]가상테이블 M을 ROWNUM과 함께 조회하는 가상테이블을 만들고 (가상테이블 C)
+[3]가상테이블 C를 조회하면 된다 (즉 가상테이블 M(ORDER BY 정렬이 들어감)을 조회하는 가상테이블 C (ROWNUM을 갖는다)를 조회한다)
+
+SELECT C.RNUM, C.MNO, C.EMAIL, C.MNAME
+      FROM (SELECT ROWNUM RNUM, M.MNO, M.EMAIL, M.MNAME
+        FROM (SELECT MNO,EMAIL,MNAME
+            FROM MEMBER 
+      ORDER BY MNO ASC) M) MEMBER 
+      WHERE RNUM BETWEEN 11 AND 23;
+
+SpringHome2 프로젝트 참조 ( Paging 클래스)
+	  
+package com.edu.util;
+
+import java.io.Serializable;
+
+public class Paging implements Serializable{
+
+	public static final int PAGE_SCALE = 10;
+	
+	public static final int BLOCK_SCALE = 10;
+	
+	private int curPage;
+	
+	private int totPage;
+	private int totBlock;
+	private int curBlock;
+	
+	private int prevBlock;
+	private int nextBlock;
+	
+	private int pageBegin;
+	private int pageEnd;
+	
+	private int blockBegin;
+	private int blockEnd;
+	
+	public Paging(int count, int curPage) {
+		curBlock = 1;
+		this.curPage = curPage;
+		
+	}
+	
+	public void setBlockRange() {
+		curBlock = (int)Math.ceil((curPage - 1) / BLOCK_SCALE) + 1;
+		
+		blockBegin = (curBlock - 1) * BLOCK_SCALE + 1;
+		
+		blockEnd = blockBegin + BLOCK_SCALE;
+		
+		if(blockEnd > totPage) {
+			blockEnd = totPage;
+		}
+		
+		prevBlock = (curPage == 1) ? 1 : (curBlock - 1) * BLOCK_SCALE;
+		
+		nextBlock = curBlock > totBlock ? (curBlock * BLOCK_SCALE)
+				: (curBlock * BLOCK_SCALE) + 1;
+		
+		if(prevBlock <= 0) {
+			prevBlock = 1;
+		}
+		
+		if(nextBlock >= totPage) {
+			nextBlock = totPage;
+		}
+	}
+	
+	public void setPageRange() {
+		pageBegin = (curPage - 1) * PAGE_SCALE + 1;
+		
+		pageEnd = pageBegin + PAGE_SCALE - 1;
+	}
+
+	public int getCurPage() {
+		return curPage;
+	}
+
+	public void setCurPage(int curPage) {
+		this.curPage = curPage;
+	}
+
+	public int getTotPage() {
+		return totPage;
+	}
+
+	public void setTotPage(int count) {
+		
+		this.totPage = count;
+	}
+
+	public int getTotBlock() {
+		return totBlock;
+	}
+
+	public void setTotBlock(int totBlock) {
+		this.totBlock = totBlock;
+	}
+
+	public int getCurBlock() {
+		return curBlock;
+	}
+
+	public void setCurBlock(int curBlock) {
+		this.curBlock = curBlock;
+	}
+
+	public int getPrevBlock() {
+		return prevBlock;
+	}
+
+	public void setPrevBlock(int prevBlock) {
+		this.prevBlock = prevBlock;
+	}
+
+	public int getNextBlock() {
+		return nextBlock;
+	}
+
+	public void setNextBlock(int nextBlock) {
+		this.nextBlock = nextBlock;
+	}
+
+	public int getPageBegin() {
+		return pageBegin;
+	}
+
+	public void setPageBegin(int pageBegin) {
+		this.pageBegin = pageBegin;
+	}
+
+	public int getPageEnd() {
+		return pageEnd;
+	}
+
+	public void setPageEnd(int pageEnd) {
+		this.pageEnd = pageEnd;
+	}
+
+	public int getBlockBegin() {
+		return blockBegin;
+	}
+
+	public void setBlockBegin(int blockBegin) {
+		this.blockBegin = blockBegin;
+	}
+
+	public int getBlockEnd() {
+		return blockEnd;
+	}
+
+	public void setBlockEnd(int blockEnd) {
+		this.blockEnd = blockEnd;
+	}
+	
+	
+}
+	  

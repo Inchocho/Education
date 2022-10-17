@@ -1,0 +1,19 @@
+Mapper xml 파일 작성 
+
+역시 이전과 작성 방법은 동일한데, 한 가지 다른점은 namespace에 인터페이스의 전체 경로를 기입해줘야 한다는 것입니다. 이 xml 파일과 해당 인터페이스를 매핑해준다고 생각하면 됩니다.
+
+ 
+
+참고로 #{ }는 작은 따옴표( ' ' )가 자동으로 붙습니다. 만약 숫자나 테이블명, 컬럼명 등을 변수로 사용할 때는 따옴표가 붙지 않는 ${ } 안에 변수를 넣어주면 됩니다.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 
+3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hs.spring.hsweb.user.db.UserInfoMapper">
+
+	<select id="selectOne" parameterType="String" resultType="UserInfoVO">
+		select * from user_info where user_id = #{value}
+	</select>
+
+</mapper>

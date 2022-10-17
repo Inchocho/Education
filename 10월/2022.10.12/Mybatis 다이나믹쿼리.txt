@@ -1,0 +1,24 @@
+다이나믹 SQL or 쿼리
+
+<set>
+	<if test="email != ''">EMAIL = #{email},</if>
+	<if test="name != ''">EMAIL = #{name},</if>
+	MOD_DATE = SYSDATE
+</set>
+
+칼럼뒤에 ,(comma)가 붙는이유 -> 쿼리에 if문 조건이 만족한 완벽한 쿼리만이 실행되는데 
+SQL 문법에서 
+UPDATE MEMBER EMAIL = ~~ , <--- NAME = ~~ 이 ,가 있어야만 한다
+
+<set>
+	<if test="조건1">SQL 구문</if>
+	<if test="조건2">SQL 구문</if>
+</set>
+
+<set>태그는 update문의 set 절을 만들 때 사용한다.
+조건이 참인 if의 내용은 set절에 포함된다.
+
+<if>태그는 어떤 값의 상태를 검사하여 참일 경우에만 sql문을 포함하고 싶을때 사용한다
+test 속성에 지정된 조건이 참이면 if태그의 내용을 반환한다
+
+JSTL 태그들과 비슷하다 ${memberDto} 얘네들 JSP페이지에서

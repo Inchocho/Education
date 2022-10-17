@@ -1,0 +1,49 @@
+	매퍼(내가함)
+	<select id="memberExist" parameterType="map"
+		resultMap="memberResultMap">
+		SELECT MNAME, EMAIL, MNO
+		FROM MEMBER
+		WHERE EMAIL = #{email} AND PWD = #{pwd} 
+	</select>	
+
+	
+	컨트롤러(내가함)
+	//수정시 바로바로 적용되게 바꾸기(세션?)
+	@RequestMapping(value="/member/updateCtr.do", method = RequestMethod.POST)
+	public String memberUpdate(MemberDto memberDto, HttpSession session, Model model) {
+		logger.info("Welcome MemberController memberUpdate! " + memberDto);
+		
+		memberService.memberUpdateOne(memberDto);
+		
+		MemberDto memberDto2 = (MemberDto) session.getAttribute("member");
+		
+		System.out.println("번호1" + memberDto.getNo());
+		System.out.println("이름1" + memberDto.getName());
+		
+		System.out.println("번호2" + memberDto2.getNo());
+		System.out.println("이름2" + memberDto2.getName());
+		
+		//이게 무슨 조건이냐? -> 변경된 memberDto의 번호(기본키)가 기존 변경전 세션의 번호와 같으면?
+		//변경된 memberDto를 value로 member키값에 담는다
+		if(memberDto.getNo() == memberDto2.getNo()) {
+			session.setAttribute("member", memberDto);
+		}
+		
+		
+		return "redirect:/member/list.do";
+	}
+	
+	//삭제(삭제시 세션없애는 처리?)
+	@RequestMapping(value="/member/deleteCtr.do", method = RequestMethod.GET)
+	public String memberDelete(int no, HttpSession session, Model model) {
+		logger.info("Welcome MemberController memberDeleteCtr! " + no);
+		
+		memberService.memberDeleteOne(no);
+		MemberDto memberDto2 = (MemberDto) session.getAttribute("member");
+		
+		if(no == memberDto2.getNo()) {
+			session.invalidate();
+		}
+		
+		return "redirect:/auth/login.do";
+	}

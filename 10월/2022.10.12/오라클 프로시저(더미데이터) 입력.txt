@@ -1,0 +1,16 @@
+
+더미데이터 생성(오라클 프로시저)
+
+DECLARE
+ vn_data1 VARCHAR2(40) := 'hs_'; 
+ vn_data2 VARCHAR2(50) := '현석_';
+BEGIN
+	 FOR i IN 1..20
+	 LOOP
+	 INSERT INTO MEMBER
+	 VALUES
+	 (MEMBER_MNO_SEQ.NEXTVAL, vn_data1 || i || 'naver.com' ,'1234', vn_data2 || i ,SYSDATE + i,SYSDATE);
+	END LOOP;
+    COMMIT;
+END;
+

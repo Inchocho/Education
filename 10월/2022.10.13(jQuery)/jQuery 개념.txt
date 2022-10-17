@@ -1,0 +1,85 @@
+jQuery의 개념 -> 왜 썼는가?
+
+그냥 jquery.min.js 가져와서 쓰면됨
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+1. 코드의 양이 줄어든다 -> 가독성 UP
+
+2. 브라우저의 상관없이 같은 표준을 제공한다
+
+3. 도큐먼트 내용 자체도 바꿀 수 있다. HTML 전체 구조를 완전히 새로 만들거나 
+   확장하기 쉽다 .이 모든 변경이 간단한 API(Application Programming Interface)
+   로 가능하다
+   
+4. 페이지와 사용자 간 상호작용 처리, 세련된 방식
+   웹 개발자를 괴롭히는 브라우저 사이의 불일치 문제를 깔끔하게 해결해 준다.
+   
+5. 시각적인 효과를 제공해준다
+
+6. 페이지를 새로고침 하지 않고 서버에서 정보를 가져오는 비동기 통신(Asynchronous Javascript and Xml = Ajax) 
+   클라이언트와 서버 사이에서 통신 할 수 있는 훨씬 더 많은 기술을 사용 할 수 있다
+   
+7. 일반적인 자바스크립트 작업을 단순화
+
+8. CSS 지식을 활용 할 수 있도록 돕는다
+
+9. 언제나 집합으로 작업한다(반복문 작업을 대체 , 단수작업이 사라지고 복수(집합)로 작업을 하게 됨)
+
+예제
+자바스크립트의 경우(h1 태그에 색상적용 - 반복문 for문필요)
+	window.onload = function () {
+		var h1ObjList = document.getElementsByTagName('h1');
+		for (var i = 0; i < h1ObjList.length; i++) {
+			h1ObjList[i].style.background = 'gold';		
+		}
+	}
+jQuery의 경우(h1 태그에 색상을 한번에 적용)
+	$(document).ready(function() {
+		$('h1').css('background', 'green');
+	});
+
+10. 여러 동작을 한 줄에 작성 가능하다 (임시 변수 사용을 최소화하거나 불필요한 반복을 피함)
+
+11. 모든 사람에게 무료로 제공한다 
+
+################
+jQuery도 오래되서 사장됨 (점유율이 많이 떨어짐) -> 코드를 보고 뭔지 알정도만 공부할 필요가 있다
+
+React와 Vue.js 얘네가 2대장 (React가 압도적으로 높음)
+React : Vue.js : Angular : 기타 == 5 : 3 : 1 : 1 정도의 비율
+
+jQuery 예시
+
+<script 
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){		
+		$('#firstDiv').css('color', 'pink');
+		$('#secondDiv').css('color', 'skyblue');
+		$('h1').css('color', 'lime');
+		$('.highlight').css('color', 'gold');
+		
+		$('.highlight').css('backgroundColor', 'brown');
+		$('#firstDiv').css('backgroundColor', 'orange');
+		$('#secondDiv').css('backgroundColor', 'blue');
+		$('h1').css('backgroundColor', 'purple');
+	});
+
+</script>
+
+<body>
+	<h1>jQuery 배우기</h1>
+	<h2>jQuery에서 $ <- documnet같은 녀석 (jQuery 문법의 시작을 나타냄)</h2>
+	<div>123</div>
+	
+	$('h1').css('color', 'red'); -> jQuery('h1').css('color', 'red');를 치환한것
+	$('') -> css선택자와 똑같음 태그 (선택자없음), 아이디 (#), 클래스 (.) 즉 --> $('')태그 $('#')아이디 $('.')클래스
+	$를 다른곳에서 사용하지 않을경우 $를 써서 jQuery문법을 작성하고 겹칠 경우 반드시
+	jQuery를 작성해서 코드를 작성하자 
+	jQuery에서 get, set
+	--> $('div').css('color' (get -> 스타일에서 color를 get), 'pink' (set -> color에 pink를 set));
+	
+</body>
