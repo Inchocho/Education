@@ -1,0 +1,195 @@
+--------------------------------------------------------
+--  파일이 생성됨 - 수요일-10월-19-2022   
+--------------------------------------------------------
+DROP SEQUENCE "EZEN"."MEMBER_MNO_SEQ";
+DROP SEQUENCE "EZEN"."TB_FILE_IDX_SEQ";
+DROP TABLE "EZEN"."TB_FILE";
+DROP TABLE "EZEN"."MEMBER";
+--------------------------------------------------------
+--  DDL for Sequence MEMBER_MNO_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "EZEN"."MEMBER_MNO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 161 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence TB_FILE_IDX_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "EZEN"."TB_FILE_IDX_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Table TB_FILE
+--------------------------------------------------------
+
+  CREATE TABLE "EZEN"."TB_FILE" 
+   (	"IDX" NUMBER, 
+	"PARENT_SEQ" NUMBER, 
+	"ORIGINAL_FILE_NAME" VARCHAR2(260 BYTE), 
+	"STORED_FILE_NAME" VARCHAR2(36 BYTE), 
+	"FILE_SIZE" NUMBER, 
+	"CRE_DATE" DATE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table MEMBER
+--------------------------------------------------------
+
+  CREATE TABLE "EZEN"."MEMBER" 
+   (	"MNO" NUMBER, 
+	"EMAIL" VARCHAR2(40 BYTE), 
+	"PWD" VARCHAR2(100 BYTE), 
+	"MNAME" VARCHAR2(50 BYTE), 
+	"CRE_DATE" DATE, 
+	"MOD_DATE" DATE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "EZEN"."MEMBER"."MNO" IS '회원번호';
+   COMMENT ON COLUMN "EZEN"."MEMBER"."EMAIL" IS '이메일';
+   COMMENT ON COLUMN "EZEN"."MEMBER"."PWD" IS '암호';
+   COMMENT ON COLUMN "EZEN"."MEMBER"."MNAME" IS '이름';
+   COMMENT ON COLUMN "EZEN"."MEMBER"."CRE_DATE" IS '가입일';
+   COMMENT ON COLUMN "EZEN"."MEMBER"."MOD_DATE" IS '마지막암호변경일';
+   COMMENT ON TABLE "EZEN"."MEMBER"  IS '회원기본정보';
+REM INSERTING into EZEN.TB_FILE
+SET DEFINE OFF;
+Insert into EZEN.TB_FILE (IDX,PARENT_SEQ,ORIGINAL_FILE_NAME,STORED_FILE_NAME,FILE_SIZE,CRE_DATE) values (25,124,'test.jpg','bed03ad73c64435db708fe64c208ba8d.jpg',90538,to_date('22/10/18','RR/MM/DD'));
+Insert into EZEN.TB_FILE (IDX,PARENT_SEQ,ORIGINAL_FILE_NAME,STORED_FILE_NAME,FILE_SIZE,CRE_DATE) values (23,123,'test.jpg','d6a5e1bbdc03417a88d0998953c343d8.jpg',90538,to_date('22/10/18','RR/MM/DD'));
+Insert into EZEN.TB_FILE (IDX,PARENT_SEQ,ORIGINAL_FILE_NAME,STORED_FILE_NAME,FILE_SIZE,CRE_DATE) values (24,124,'jquery_error.jpg','644d489f437e4969b30691fd8d2d8767.jpg',177259,to_date('22/10/18','RR/MM/DD'));
+Insert into EZEN.TB_FILE (IDX,PARENT_SEQ,ORIGINAL_FILE_NAME,STORED_FILE_NAME,FILE_SIZE,CRE_DATE) values (27,125,'jquery_error.jpg','9f6386ffc59842e397a4d95a228ac4f9.jpg',177259,to_date('22/10/18','RR/MM/DD'));
+REM INSERTING into EZEN.MEMBER
+SET DEFINE OFF;
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (1,'s1@test.com','1111','홍길동',to_date('22/10/07','RR/MM/DD'),to_date('22/10/07','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (2,'s2@test.com','1111','임꺽정',to_date('22/10/07','RR/MM/DD'),to_date('22/10/07','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (3,'s3@test.com','1111','일지매',to_date('22/10/07','RR/MM/DD'),to_date('22/10/07','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (4,'s4@test.com','1111','이몽룡',to_date('22/10/07','RR/MM/DD'),to_date('22/10/07','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (5,'s5@test.com','1111','성춘향',to_date('22/10/07','RR/MM/DD'),to_date('22/10/07','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (41,'test','test12','테스트',to_date('22/10/12','RR/MM/DD'),to_date('22/10/12','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (24,'test@test.com','test','test',to_date('22/10/11','RR/MM/DD'),to_date('22/10/11','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (25,'java@','1111','자바야',to_date('22/10/11','RR/MM/DD'),to_date('22/10/11','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (44,'ff44@test.com','ff','테스트계정44',to_date('22/11/25','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (81,'java@test.com','1111','자바',to_date('22/10/13','RR/MM/DD'),to_date('22/10/13','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (45,'ff45@test.com','ff','테스트계정45',to_date('22/11/26','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (46,'ff46@test.com','ff','테스트계정46',to_date('22/11/27','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (47,'ff47@test.com','ff','테스트계정47',to_date('22/11/28','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (48,'ff48@test.com','ff','테스트계정48',to_date('22/11/29','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (49,'ff49@test.com','ff','테스트계정49',to_date('22/11/30','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (50,'ff50@test.com','ff','테스트계정50',to_date('22/12/01','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (51,'ff51@test.com','ff','테스트계정51',to_date('22/12/02','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (52,'ff52@test.com','ff','테스트계정52',to_date('22/12/03','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (53,'ff53@test.com','ff','테스트계정53',to_date('22/12/04','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (54,'ff54@test.com','ff','테스트계정54',to_date('22/12/05','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (55,'ff55@test.com','ff','테스트계정55',to_date('22/12/06','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (56,'ff56@test.com','ff','테스트계정56',to_date('22/12/07','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (57,'ff57@test.com','ff','테스트계정57',to_date('22/12/08','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (58,'ff58@test.com','ff','테스트계정58',to_date('22/12/09','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (59,'ff59@test.com','ff','테스트계정59',to_date('22/12/10','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (60,'ff60@test.com','ff','테스트계정60',to_date('22/12/11','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (61,'ff61@test.com','ff','테스트계정61',to_date('22/12/12','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (102,'file@test.com','ff','파일첨부',to_date('22/10/17','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (63,'ff63@test.com','ff','테스트계정63a',to_date('22/12/14','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (83,'dul@test','1111','다운이',to_date('22/10/13','RR/MM/DD'),to_date('22/10/13','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (101,'ff@test.com','ff','ff',to_date('22/10/17','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (82,'psu@test.com','1111','박성욱',to_date('22/10/13','RR/MM/DD'),to_date('22/10/13','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (103,'ffT','ff','ff',to_date('22/10/17','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (104,'naver@test.com','ff','네이버',to_date('22/10/17','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (105,'1@','ff','1',to_date('22/10/17','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (106,'2@','ff','2',to_date('22/10/17','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (107,'a','a','a',to_date('22/10/17','RR/MM/DD'),to_date('22/10/17','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (121,'1','1','1',to_date('22/10/18','RR/MM/DD'),to_date('22/10/18','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (122,'passion@test.com','passion','열혈남아',to_date('22/10/18','RR/MM/DD'),to_date('22/10/18','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (123,'이미지','dlalwl','이미지',to_date('22/10/18','RR/MM/DD'),to_date('22/10/18','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (124,'다른사람1@','1','다른사람1',to_date('22/10/18','RR/MM/DD'),to_date('22/10/18','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (125,'이미자@','1','이미자',to_date('22/10/18','RR/MM/DD'),to_date('22/10/18','RR/MM/DD'));
+Insert into EZEN.MEMBER (MNO,EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE) values (141,'456sojin@ezen.com','12','123소진이',to_date('22/10/19','RR/MM/DD'),to_date('22/10/19','RR/MM/DD'));
+--------------------------------------------------------
+--  DDL for Index MEMBER_EMAIL_UK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "EZEN"."MEMBER_EMAIL_UK" ON "EZEN"."MEMBER" ("EMAIL") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index MEMBER_MNO_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "EZEN"."MEMBER_MNO_PK" ON "EZEN"."MEMBER" ("MNO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C007604
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "EZEN"."SYS_C007604" ON "EZEN"."TB_FILE" ("IDX") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C007604
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "EZEN"."SYS_C007604" ON "EZEN"."TB_FILE" ("IDX") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index MEMBER_MNO_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "EZEN"."MEMBER_MNO_PK" ON "EZEN"."MEMBER" ("MNO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index MEMBER_EMAIL_UK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "EZEN"."MEMBER_EMAIL_UK" ON "EZEN"."MEMBER" ("EMAIL") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  Constraints for Table TB_FILE
+--------------------------------------------------------
+
+  ALTER TABLE "EZEN"."TB_FILE" ADD PRIMARY KEY ("IDX")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "EZEN"."TB_FILE" MODIFY ("CRE_DATE" NOT NULL ENABLE);
+  ALTER TABLE "EZEN"."TB_FILE" MODIFY ("STORED_FILE_NAME" NOT NULL ENABLE);
+  ALTER TABLE "EZEN"."TB_FILE" MODIFY ("ORIGINAL_FILE_NAME" NOT NULL ENABLE);
+  ALTER TABLE "EZEN"."TB_FILE" MODIFY ("PARENT_SEQ" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table MEMBER
+--------------------------------------------------------
+
+  ALTER TABLE "EZEN"."MEMBER" ADD CONSTRAINT "MEMBER_EMAIL_UK" UNIQUE ("EMAIL")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "EZEN"."MEMBER" ADD CONSTRAINT "MEMBER_MNO_PK" PRIMARY KEY ("MNO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "EZEN"."MEMBER" MODIFY ("MOD_DATE" NOT NULL ENABLE);
+  ALTER TABLE "EZEN"."MEMBER" MODIFY ("CRE_DATE" NOT NULL ENABLE);
+  ALTER TABLE "EZEN"."MEMBER" MODIFY ("MNAME" NOT NULL ENABLE);
+  ALTER TABLE "EZEN"."MEMBER" MODIFY ("PWD" NOT NULL ENABLE);
+  ALTER TABLE "EZEN"."MEMBER" MODIFY ("EMAIL" NOT NULL ENABLE);
+  ALTER TABLE "EZEN"."MEMBER" MODIFY ("MNO" NOT NULL ENABLE);
