@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery_Ajax_연습</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        div.question-box {
+            margin: 10px 0 20px 0;
+        }
+
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 10px;
+            border: 1px solid;
+        }
+    </style>
+<script>
+        function q1() {
+            $.ajax({
+                type: "GET",
+                url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=f5eef3421c602c6cb7ea224104795888&movieCd=20124079",
+                data: {},
+                success: function(response){
+                    $("#names-q1").empty()
+                    let movieList = response["movieInfoResult"]["movieInfo"]
+                    
+                        let movieCd = movieList["movieCd"]
+                        let movieNm = movieList["movieNm"]
+                        let openDt = movieList["openDt"]
+                        let repNationNm = movieList["repNationNm"]
+                        let directors = movieList["directors"]
+                        let peopleNm = directors["peopleNm"]  //무조건 감독 1명만 찍힘                      
+                        let repGenreNm = movieList["repGenreNm"]
+
+                        
+                        let movie = ``            
+                            movie = `<tr>
+                                            <td>${movieCd}</td>
+                                            <td>${movieNm}</td>
+                                            <td>${openDt}</td>
+                                            <td>${repNationNm}</td>
+                                            <td>${peopleNm}</td>
+                                            <td>${repGenreNm}</td>
+                                        </tr>`                 
+                        
+                        
+                        $("#names-q1").append(movie)
+                    }
+            })
+        }
+
+ 
+    </script>
+</head>
+
+<body>
+    <h1>이전에 다룬 jQuery와 Ajax를 활용해보자</h1>
+
+    <hr />
+
+    <div class="question-box">
+        <h2>서울시 따릉이 OpenAPI 사용하기</h2>
+        <p>모든 위치의 따릉이 현황을 보여주세요</p>
+        <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
+        <button onclick="q1()">업데이트</button>
+        <table>
+            <thead>
+                <tr>
+                    <td>영화코드</td>
+                    <td>영화제목</td>
+                    <td>제작년도</td>
+                    <td>제작국가</td>
+                    <td>감독</td>
+                    <td>장르</td>
+                </tr>
+            </thead>
+            <tbody id="names-q1">
+                <tr>
+                    <td></td>
+                    <td>102. 망원역 1번출구 앞</td>
+                    <td>22</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>103. 망원역 2번출구 앞</td>
+                    <td>16</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>104. 합정역 1번출구 앞</td>
+                    <td>16</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

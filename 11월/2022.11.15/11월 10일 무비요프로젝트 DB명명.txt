@@ -1,0 +1,39 @@
+회원테이블
+MVY_USER	타입				제약조건				
+회원번호	 	NUMBER			- PRIMARY KEY
+회원이메일 	   	VARCHAR2(100)	- NOT NULL UNIQUE			
+회원비밀번호  	VARCHAR2(40)	- NOT NULL
+회원이름    	VARCHAR2(20)	- NOT NULL
+회원생년월일	VARCHAR2(8)		- NOT NULL
+회원닉네임 		VARCHAR2(10)	- NOT NULL , UNIQUE
+회원성별		VARCHAR2(3)		- NOT NULL
+회원장르		VARCHAR2(20)	- NOT NULL
+회원정보등록일	DATE			- NOT NULL 
+회원정보수정일	DATE			- NOT NULL
+
+
+영화
+MVY_MOVIE	타입				제약조건
+영화번호		NUMBER			- PK
+영화이름		VARCHAR2(40)	- NOT NULL 
+영화장르		VARCHAR2(40)	- NOT NULL
+영화내용		VARCHAR2(4000)	- NOT NULL
+
+
+구매(제품)
+MVY_PRODUCT		타입		제약조건
+상품번호			NUMBER	-PK
+영화번호			NUMBER	-FK(REFERENCE MVY_MOVIE)
+상품갯수			NUMBER	NOT NULL
+상품가격			NUMBER	NOT NULL
+
+
+게시판
+MVY_BOARD		타입				제약조건
+게시판번호			NUMBER			-PK 
+회원번호			NUMBER			-FK(REFERENCE BY MVY_USER)
+게시판머리			VARCHAR2(10)	NOT NULL
+게시판제목			VARCHAR2(40)	NOT NULL 
+게시판내용			VARCHAR2(4000)	NOT NULL
+게시판작성일		DATE			NOT NULL
+게시판조회			NUMBER			NOT NULL

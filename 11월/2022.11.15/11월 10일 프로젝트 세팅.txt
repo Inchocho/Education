@@ -1,0 +1,44 @@
+DB 접속 
+
+DB ID : MOVIEYO
+DB PASS : 1234
+
+CREATE USER MOVIEYO IDENTIFED BY 1234;
+GRANT CONNECT, RESOURCE TO MOVIEYO;
+
+이클립스 버전(2021-12)
+이클립스 폴더명 eclipseMovieyo
+워크스페이스 경로 : C:/workspaceMovieyo
+
+이클립스
+marketplace 
+MyBatipse 1.3.0
+Mylyn 3.23 =
+tern(install)
+http://oss.opensagres.fr/tern.repository/1.2.0/
+Spring Tools 3 (3.9.14)
+
+
+깃 리포지토리 경로 : D:\MovieyoRepository
+깃허브 주소 : https://github.com/Inchocho/TeamProject_Movieyo
+
+eclipse.ini 
+xms,xmx 변경
+-Xms1024m
+-Xmx2048m
+
+서버톰캣 버전(8.0.9)
+
+DynamicWebProject 
+프로젝트명 Movieyo
+
+src/main/resources
+src/main/java
+src/test/java	
+src/test/resources
+폴더 추가 
+
+Default output folder
+-> build/classes 입력
+
+content Directory : src/main/webapp

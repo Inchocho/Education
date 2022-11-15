@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>JQuery_Ajax_연습</title>	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var rows = document.getElementById("tmp_table_body").getElementsByTagName("tr");
+    console.log(rows.length);	// tbody tr 개수 = 2
+	
+    // tr만큼 루프돌면서 컬럼값 접근
+    for( var r=0; r<rows.length; r++ ){
+      var cells = rows[r].getElementsByTagName("td");
+
+      var cell_1 = cells[0].firstChild.data;		// 이름
+      var cell_2 = cells[1].firstChild.data;		// 나이
+      var cell_3 = cells[2].firstChild.data;		// 성별
+
+      console.log(cell_1);	// 홍길동, 김영희
+      console.log(cell_2);	// 23, 25
+      console.log(cell_3);	// 남자,여자
+    }
+  });
+
+			
+	</script>
+	<title></title>
+</head>
+<body>
+	<table>
+	  <thead>
+	    <tr>
+	      <th>이름</th>
+	      <th>나이</th>
+	      <th>성별</th>
+	    </tr>
+	  </thead>
+	  <tbody id="tmp_table_body">
+	    <tr>
+	      <td>홍길동</td>
+	      <td>23</td>
+	      <td>남자</td>
+	    </tr>
+	    <tr>
+	      <td>김영희</td>
+	      <td>25</td>
+	      <td>여자</td>
+	    </tr>
+	  </tbody>
+	</table>
+</body>
+</html>
